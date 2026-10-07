@@ -34,8 +34,8 @@ export const AdminAuthProvider = ({ children }) => {
     fetchCurrentAdmin();
   }, []);
 
-  const login = async (email, password) => {
-    const data = await adminApi.post('/auth/login', { email, password });
+  const login = async (username, password) => {
+    const data = await adminApi.post('/auth/admin-login', { username, password });
     if (data.success && data.token) {
       if (data.user.role !== 'admin') {
         throw new Error('Sizda administratorlik huquqi mavjud emas.');

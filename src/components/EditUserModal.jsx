@@ -119,31 +119,31 @@ export const EditUserModal = ({ isOpen, onClose, user, onSave, loading }) => {
             
             {/* Rol */}
             <div className="space-y-1.5">
-              <label className="font-bold text-gray-700 dark:text-gray-300">Foydalanuvchi Roli</label>
-              <select
+              <label className="text-xs font-bold text-gray-700 dark:text-gray-300">Foydalanuvchi Roli</label>
+              <CustomSelect
                 value={formData.role}
-                onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+                onChange={(val) => setFormData({ ...formData, role: val })}
                 disabled={user.username === 'temurmalik'}
-                className="w-full px-3 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50/50 dark:bg-white/[0.03] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500"
-              >
-                <option value="user">Talaba (Oddiy Foydalanuvchi)</option>
-                <option value="admin">Ma'mur (Admin)</option>
-              </select>
+                options={[
+                  { value: 'user', label: 'Talaba (Oddiy Foydalanuvchi)', subtext: 'Darsliklar va topshiriqlar' },
+                  { value: 'admin', label: 'Ma\'mur (Admin)', subtext: 'To\'liq boshqaruv huquqlari' }
+                ]}
+              />
             </div>
 
             {/* Obuna biriktirish */}
             <div className="space-y-1.5">
-              <label className="font-bold text-gray-700 dark:text-gray-300">Yangi Tarif Biriktirish</label>
-              <select
+              <label className="text-xs font-bold text-gray-700 dark:text-gray-300">Yangi Tarif Biriktirish</label>
+              <CustomSelect
                 value={formData.planName}
-                onChange={(e) => setFormData({ ...formData, planName: e.target.value })}
-                className="w-full px-3 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50/50 dark:bg-white/[0.03] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500"
-              >
-                <option value="none">O'zgarishsiz qoldirish</option>
-                <option value="1_month">Plus Obuna (+1 oylik)</option>
-                <option value="2_months">Pro Obuna (+2 oylik)</option>
-                <option value="3_months">Ultra Obuna (+3 oylik)</option>
-              </select>
+                onChange={(val) => setFormData({ ...formData, planName: val })}
+                options={[
+                  { value: 'none', label: 'O\'zgarishsiz qoldirish', subtext: 'Mavjud holat saqlanadi' },
+                  { value: '1_month', label: 'Plus Obuna (+1 oylik)', subtext: '50 000 so\'m' },
+                  { value: '2_months', label: 'Pro Obuna (+2 oylik)', subtext: '90 000 so\'m' },
+                  { value: '3_months', label: 'Ultra Obuna (+3 oylik)', subtext: '120 000 so\'m' }
+                ]}
+              />
             </div>
 
           </div>
