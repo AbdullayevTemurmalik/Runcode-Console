@@ -284,7 +284,7 @@ export const TrashPage = () => {
                     </td>
                     <td className="px-6 py-4">
                       <p className="font-semibold text-gray-900 dark:text-white">
-                        {ord.plan_name === '1_month' ? '1 Oylik' : ord.plan_name === '2_months' ? '2 Oylik' : '3 Oylik'}
+                        {ord.plan_name === '1_month' ? 'Plus (1 Oylik)' : ord.plan_name === '2_months' ? 'Pro (2 Oylik)' : 'Ultra (3 Oylik)'}
                       </p>
                       <p className="font-mono font-bold text-brand-600 dark:text-brand-400 mt-0.5">
                         {ord.amount.toLocaleString()} so'm

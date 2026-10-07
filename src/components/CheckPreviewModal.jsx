@@ -69,7 +69,7 @@ export const CheckPreviewModal = ({ isOpen, onClose, order, onApprove, onReject 
             <div>
               <p className="text-gray-400 font-semibold uppercase text-[9px]">Tarif</p>
               <p className="font-bold text-gray-900 dark:text-white">
-                {order.plan_name === '1_month' ? '1 Oylik' : order.plan_name === '2_months' ? '2 Oylik' : '3 Oylik'}
+                {order.plan_name === '1_month' ? 'Plus (1 Oylik)' : order.plan_name === '2_months' ? 'Pro (2 Oylik)' : 'Ultra (3 Oylik)'}
               </p>
             </div>
             <div>

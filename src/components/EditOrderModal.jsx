@@ -34,8 +34,8 @@ export const EditOrderModal = ({ order, isOpen, onClose, onSaveSuccess }) => {
   if (!isOpen || !order) return null;
 
   const [status, setStatus] = useState(order.status || 'pending');
-  const [planName, setPlanName] = useState(order.plan_name || '2_months');
-  const [amount, setAmount] = useState(order.amount || 90000);
+  const [planName, setPlanName] = useState(order.plan_name || '1_month');
+  const [amount, setAmount] = useState(order.amount || (order.plan_name === '3_months' ? 120000 : order.plan_name === '2_months' ? 90000 : 50000));
   const [paymentMethod, setPaymentMethod] = useState(order.payment_method || 'apps');
   const [rejectionReason, setRejectionReason] = useState(order.rejection_reason || '');
   const [loading, setLoading] = useState(false);
@@ -44,8 +44,9 @@ export const EditOrderModal = ({ order, isOpen, onClose, onSaveSuccess }) => {
   useEffect(() => {
     if (order) {
       setStatus(order.status || 'pending');
-      setPlanName(order.plan_name || '2_months');
-      setAmount(order.amount || 90000);
+      const p = order.plan_name || '1_month';
+      setPlanName(p);
+      setAmount(order.amount || (p === '3_months' ? 120000 : p === '2_months' ? 90000 : 50000));
       setPaymentMethod(order.payment_method || 'apps');
       setRejectionReason(order.rejection_reason || '');
     }
