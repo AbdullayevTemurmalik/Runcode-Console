@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { X, User, Phone, Mail, Shield, Sparkles, Loader2, Save } from 'lucide-react';
+import { CustomSelect } from './CustomSelect';
 
 export const EditUserModal = ({ isOpen, onClose, user, onSave, loading }) => {
   const [formData, setFormData] = useState({
@@ -139,9 +140,10 @@ export const EditUserModal = ({ isOpen, onClose, user, onSave, loading }) => {
                 onChange={(val) => setFormData({ ...formData, planName: val })}
                 options={[
                   { value: 'none', label: 'O\'zgarishsiz qoldirish', subtext: 'Mavjud holat saqlanadi' },
-                  { value: '1_month', label: 'Plus Obuna (+1 oylik)', subtext: '50 000 so\'m' },
-                  { value: '2_months', label: 'Pro Obuna (+2 oylik)', subtext: '90 000 so\'m' },
-                  { value: '3_months', label: 'Ultra Obuna (+3 oylik)', subtext: '120 000 so\'m' }
+                  { value: '7_days', label: 'Plus Obuna (7 Kunlik)', subtext: '20 000 so\'m (Test sinov)' },
+                  { value: '1_month', label: 'Pro Obuna (1 Oylik)', subtext: '50 000 so\'m' },
+                  { value: '2_months', label: 'Pro+ Obuna (2 Oylik)', subtext: '90 000 so\'m (Tavsiya)' },
+                  { value: '3_months', label: 'Ultra Obuna (3 Oylik)', subtext: '120 000 so\'m (Super Tejam)' }
                 ]}
               />
             </div>

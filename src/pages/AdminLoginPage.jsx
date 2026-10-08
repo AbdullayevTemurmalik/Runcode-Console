@@ -20,6 +20,9 @@ export const AdminLoginPage = () => {
       const data = await adminApi.post('/auth/admin-login', { username: username.trim(), password });
       if (data.success && data.token) {
         localStorage.setItem('runcode_admin_token', data.token);
+        if (data.user) {
+          localStorage.setItem('runcode_admin_user', JSON.stringify(data.user));
+        }
         window.location.reload();
       }
     } catch (err) {

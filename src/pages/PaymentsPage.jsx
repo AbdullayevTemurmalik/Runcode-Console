@@ -14,7 +14,6 @@ import { CheckPreviewModal } from '../components/CheckPreviewModal';
 import { RejectReasonModal } from '../components/RejectReasonModal';
 import { EditOrderModal } from '../components/EditOrderModal';
 import { ConfirmModal } from '../components/ConfirmModal';
-import { PaymentAnalyticsDiagram } from '../components/PaymentAnalyticsDiagram';
 import { PaymentsFilterTabs } from '../components/payments/PaymentsFilterTabs';
 import { PaymentsTable } from '../components/payments/PaymentsTable';
 
@@ -265,14 +264,6 @@ export const PaymentsPage = () => {
           </button>
         </div>
       </div>
-
-      {/* Tushum va Sotuvlar Diagrammasi */}
-      {!isTrashTab && (
-        <PaymentAnalyticsDiagram 
-          stats={statsData?.stats} 
-          currentOrders={orders} 
-        />
-      )}
 
       {/* Bildirishnoma (Feedback Message) */}
       {feedbackMessage && (

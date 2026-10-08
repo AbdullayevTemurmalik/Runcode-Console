@@ -88,13 +88,23 @@ export const PaymentsTable = ({
                   <td className="px-6 py-4">
                     <div className="space-y-1">
                       <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wider ${
-                        ord.plan_name === '1_month'
+                        ord.plan_name === '7_days'
+                          ? 'bg-sky-500/10 text-sky-500 border border-sky-500/20'
+                          : ord.plan_name === '1_month'
                           ? 'bg-blue-500/10 text-blue-500 border border-blue-500/20'
                           : ord.plan_name === '2_months'
-                          ? 'bg-purple-500/10 text-purple-500 border border-purple-500/20'
-                          : 'bg-amber-500/10 text-amber-500 border border-amber-500/20'
+                          ? 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20'
+                          : 'bg-purple-500/10 text-purple-500 border border-purple-500/20'
                       }`}>
-                        {ord.plan_name === '1_month' ? 'Plus (1 Oylik)' : ord.plan_name === '2_months' ? 'Pro (2 Oylik)' : 'Ultra (3 Oylik)'}
+                        {ord.plan_name === '7_days'
+                          ? 'Plus (7 Kunlik)'
+                          : ord.plan_name === '1_month'
+                          ? 'Pro (1 Oylik)'
+                          : ord.plan_name === '2_months'
+                          ? 'Pro+ (2 Oylik)'
+                          : ord.plan_name === '3_months'
+                          ? 'Ultra (3 Oylik)'
+                          : (ord.plan_name || 'Tarif')}
                       </span>
                       <p className="font-mono font-black text-emerald-600 dark:text-emerald-400 text-xs">
                         {ord.amount.toLocaleString()} so'm

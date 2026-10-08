@@ -23,27 +23,35 @@ export const PaymentAnalyticsDiagram = ({ stats }) => {
 
   // Rejalar konfiguratsiyasi va ranglari
   const planConfigs = {
-    '1_month': {
-      title: 'Plus (1 Oylik)',
-      price: 50000,
-      color: '#10b981', // emerald-500
-      gradient: 'from-emerald-500 to-teal-500',
-      bgLight: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20',
+    '7_days': {
+      title: 'Plus (7 Kunlik)',
+      price: 20000,
+      color: '#0ea5e9', // sky-500 (Och ko'k)
+      gradient: 'from-sky-400 to-cyan-500',
+      bgLight: 'bg-sky-500/10 text-sky-500 border-sky-500/20',
       icon: Zap
     },
-    '2_months': {
-      title: 'Pro (2 Oylik)',
-      price: 90000,
-      color: '#06b6d4', // cyan-500
-      gradient: 'from-cyan-500 to-blue-500',
-      bgLight: 'bg-cyan-500/10 text-cyan-500 border-cyan-500/20',
+    '1_month': {
+      title: 'Pro (1 Oylik)',
+      price: 50000,
+      color: '#2563eb', // blue-600 (Ko'k)
+      gradient: 'from-blue-500 to-indigo-600',
+      bgLight: 'bg-blue-500/10 text-blue-500 border-blue-500/20',
       icon: TrendingUp
+    },
+    '2_months': {
+      title: 'Pro+ (2 Oylik)',
+      price: 90000,
+      color: '#10b981', // emerald-500 (Yashil)
+      gradient: 'from-emerald-500 to-teal-500',
+      bgLight: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20',
+      icon: ShieldCheck
     },
     '3_months': {
       title: 'Ultra (3 Oylik)',
       price: 120000,
-      color: '#8b5cf6', // purple-500
-      gradient: 'from-purple-500 to-indigo-500',
+      color: '#a855f7', // purple-500 (Binafsha / Pushti)
+      gradient: 'from-purple-500 to-pink-500',
       bgLight: 'bg-purple-500/10 text-purple-500 border-purple-500/20',
       icon: Sparkles
     }
@@ -74,8 +82,8 @@ export const PaymentAnalyticsDiagram = ({ stats }) => {
 
   let accumulatedPercent = 0;
   const donutSegments = plansData.map((plan) => {
-    // Agar tushum bo'lmasa, har biriga teng bo'lak
-    const pct = hasRevenue ? plan.percentage : 33.33;
+    // Agar tushum bo'lmasa, 4 ta rejaga teng bo'lak (25%)
+    const pct = hasRevenue ? plan.percentage : 25;
     const strokeDasharray = `${(pct / 100) * circumference} ${circumference}`;
     const strokeDashoffset = -((accumulatedPercent / 100) * circumference);
     accumulatedPercent += pct;

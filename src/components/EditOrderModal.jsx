@@ -186,8 +186,9 @@ export const EditOrderModal = ({ order, isOpen, onClose, onSaveSuccess }) => {
                 value={planName}
                 onChange={(val) => handlePlanChange(val)}
                 options={[
-                  { value: '1_month', label: '1 Oylik (Plus - 50 000 so\'m)' },
-                  { value: '2_months', label: '2 Oylik (Pro - 90 000 so\'m)' },
+                  { value: '7_days', label: '7 Kunlik (Plus - 20 000 so\'m)' },
+                  { value: '1_month', label: '1 Oylik (Pro - 50 000 so\'m)' },
+                  { value: '2_months', label: '2 Oylik (Pro+ - 90 000 so\'m)' },
                   { value: '3_months', label: '3 Oylik (Ultra - 120 000 so\'m)' }
                 ]}
               />
