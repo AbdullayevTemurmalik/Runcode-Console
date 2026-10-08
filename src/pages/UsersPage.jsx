@@ -3,12 +3,8 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { 
   Users, 
   ShieldCheck, 
-  Mail, 
-  Calendar, 
   Search, 
   Loader2, 
-  UserCheck, 
-  Shield, 
   X, 
   Ban, 
   Edit3, 
@@ -16,12 +12,16 @@ import {
   CheckCircle2, 
   Lock, 
   Unlock,
-  AlertTriangle,
-  Phone
+  Eye,
+  Calendar,
+  Phone,
+  Mail,
+  User as UserIcon
 } from 'lucide-react';
 import adminApi from '../services/adminApi';
 import { ConfirmModal } from '../components/ConfirmModal';
 import { EditUserModal } from '../components/EditUserModal';
+import { UserDetailModal } from '../components/UserDetailModal';
 
 export const UsersPage = () => {
   const queryClient = useQueryClient();
@@ -30,6 +30,7 @@ export const UsersPage = () => {
 
   // Modal holatlari
   const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedUserForView, setSelectedUserForView] = useState(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [blockModalState, setBlockModalState] = useState({ isOpen: false, user: null });
   const [deleteModalState, setDeleteModalState] = useState({ isOpen: false, user: null });
@@ -93,6 +94,37 @@ export const UsersPage = () => {
     }
   });
 
+  // Yosh va tug'ilgan sana formati helper
+  const formatBirthDateAndAge = (bStr) => {
+    if (!bStr) return { text: "Ko'rsatilmagan", ageText: null };
+    try {
+      const parts = String(bStr).split('-');
+      if (parts.length === 3) {
+        const year = parseInt(parts[0], 10);
+        const monthIdx = parseInt(parts[1], 10) - 1;
+        const day = parseInt(parts[2], 10);
+        const monthsUz = [
+          'yanvar', 'fevral', 'mart', 'aprel', 'may', 'iyun',
+          'iyul', 'avgust', 'sentabr', 'oktabr', 'noyabr', 'dekabr'
+        ];
+        const monthName = monthsUz[monthIdx] || parts[1];
+        const today = new Date();
+        let age = today.getFullYear() - year;
+        const m = today.getMonth() - monthIdx;
+        if (m < 0 || (m === 0 && today.getDate() < day)) {
+          age--;
+        }
+        return {
+          text: `${day}-${monthName}, ${year}`,
+          ageText: age > 0 ? `${age} yosh` : null
+        };
+      }
+      return { text: bStr, ageText: null };
+    } catch {
+      return { text: bStr, ageText: null };
+    }
+  };
+
   const filteredUsers = users.filter((u) => {
     if (!searchTerm.trim()) return true;
     const term = searchTerm.toLowerCase();
@@ -132,7 +164,7 @@ export const UsersPage = () => {
             </span>
           </div>
           <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-            Foydalanuvchilarni tahrirlash (qalam), bloklash (ban) va o'chirish (savat) boshqaruvi
+            Barcha foydalanuvchilar ma'lumotlari: ism-familiya, username, yosh, sana, aloqa va obunalar
           </p>
         </div>
 
@@ -214,6 +246,7 @@ export const UsersPage = () => {
                 <thead className="bg-gray-50/80 dark:bg-white/[0.02] text-gray-400 uppercase text-[10px] tracking-wider border-b border-gray-200/80 dark:border-white/[0.08]">
                   <tr>
                     <th className="px-5 py-3.5">Foydalanuvchi</th>
+                    <th className="px-5 py-3.5">Tug'ilgan Sana & Yoshi</th>
                     <th className="px-5 py-3.5">Email & Telefon</th>
                     <th className="px-5 py-3.5">Rol</th>
                     <th className="px-5 py-3.5">Obuna Holati</th>
@@ -223,7 +256,8 @@ export const UsersPage = () => {
                 </thead>
                 <tbody className="divide-y divide-gray-100 dark:divide-white/[0.04]">
                   {filteredUsers.map((u) => {
-                    const isSuperAdmin = u.username === 'temurmalik';
+                    const isSuperAdmin = u.username === 'temurmalik' || u.username === 'temur';
+                    const birthInfo = formatBirthDateAndAge(u.birth_date);
 
                     return (
                       <tr 
@@ -238,13 +272,17 @@ export const UsersPage = () => {
                             <div className={`w-8 h-8 rounded-xl flex items-center justify-center font-black text-xs shadow-sm ${
                               u.is_blocked 
                                 ? 'bg-rose-500 text-white' 
+                                : u.role === 'admin'
+                                ? 'bg-gradient-to-tr from-amber-500 to-rose-500 text-white'
                                 : 'bg-gradient-to-tr from-brand-600 to-emerald-500 text-white'
                             }`}>
                               {u.full_name?.charAt(0).toUpperCase() || 'U'}
                             </div>
                             <div>
                               <div className="flex items-center space-x-1.5">
-                                <span>{u.full_name}</span>
+                                <span className="hover:text-brand-500 cursor-pointer" onClick={() => setSelectedUserForView(u)}>
+                                  {u.full_name || `${u.first_name || ''} ${u.last_name || ''}`.trim() || u.username}
+                                </span>
                                 {u.is_blocked && (
                                   <span className="p-0.5 rounded bg-rose-500/10 text-rose-500" title="Bloklangan">
                                     <Lock className="w-3 h-3" />
@@ -258,13 +296,23 @@ export const UsersPage = () => {
                           </div>
                         </td>
 
-                        {/* 2. Email & Phone */}
+                        {/* 2. Tug'ilgan Sana & Yoshi */}
+                        <td className="px-5 py-3.5">
+                          <p className="font-semibold text-gray-800 dark:text-gray-200">{birthInfo.text}</p>
+                          {birthInfo.ageText && (
+                            <span className="inline-block mt-0.5 px-2 py-0.2 rounded-md text-[10px] font-black bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                              {birthInfo.ageText}
+                            </span>
+                          )}
+                        </td>
+
+                        {/* 3. Email & Phone */}
                         <td className="px-5 py-3.5">
                           <p className="font-mono text-gray-600 dark:text-gray-300">{u.email || '—'}</p>
                           {u.phone && <p className="text-[11px] text-gray-400 font-mono mt-0.5">{u.phone}</p>}
                         </td>
 
-                        {/* 3. Role */}
+                        {/* 4. Role */}
                         <td className="px-5 py-3.5">
                           {u.role === 'admin' ? (
                             <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-rose-500/10 text-rose-500 border border-rose-500/20">
@@ -277,7 +325,7 @@ export const UsersPage = () => {
                           )}
                         </td>
 
-                        {/* 4. Obuna */}
+                        {/* 5. Obuna */}
                         <td className="px-5 py-3.5">
                           {u.is_subscribed ? (
                             <div className="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-bold text-[11px]">
@@ -289,7 +337,7 @@ export const UsersPage = () => {
                           )}
                         </td>
 
-                        {/* 5. Status: Bloklangan vs Faol */}
+                        {/* 6. Status: Bloklangan vs Faol */}
                         <td className="px-5 py-3.5">
                           {u.is_blocked ? (
                             <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/30">
@@ -302,9 +350,18 @@ export const UsersPage = () => {
                           )}
                         </td>
 
-                        {/* 6. AMALLAR (Qalam, Ban, Savat) */}
+                        {/* 7. AMALLAR (Batafsil, Qalam, Ban, Savat) */}
                         <td className="px-5 py-3.5 text-right">
                           <div className="flex items-center justify-end space-x-1.5">
+                            {/* Batafsil ko'rish (Eye icon) */}
+                            <button
+                              onClick={() => setSelectedUserForView(u)}
+                              className="p-1.5 sm:p-2 rounded-xl text-brand-600 dark:text-brand-400 hover:bg-brand-50 dark:hover:bg-brand-950/40 border border-transparent hover:border-brand-500/20 transition-all cursor-pointer"
+                              title="Batafsil ko'rish (Ko'z)"
+                            >
+                              <Eye className="w-4 h-4" />
+                            </button>
+
                             {/* Tahrirlash (Qalam icon) */}
                             <button
                               onClick={() => {
@@ -354,7 +411,8 @@ export const UsersPage = () => {
             {/* Mobile Card View (< 768px - down to 380px) */}
             <div className="md:hidden divide-y divide-gray-100 dark:divide-white/[0.04] p-2 space-y-2">
               {filteredUsers.map((u) => {
-                const isSuperAdmin = u.username === 'temurmalik';
+                const isSuperAdmin = u.username === 'temurmalik' || u.username === 'temur';
+                const birthInfo = formatBirthDateAndAge(u.birth_date);
 
                 return (
                   <div 
@@ -369,12 +427,18 @@ export const UsersPage = () => {
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex items-center space-x-2.5 min-w-0">
                         <div className={`w-8 h-8 rounded-xl flex items-center justify-center font-black text-xs text-white shrink-0 ${
-                          u.is_blocked ? 'bg-rose-500' : 'bg-gradient-to-tr from-brand-600 to-emerald-500'
+                          u.is_blocked 
+                            ? 'bg-rose-500' 
+                            : u.role === 'admin'
+                            ? 'bg-gradient-to-tr from-amber-500 to-rose-500'
+                            : 'bg-gradient-to-tr from-brand-600 to-emerald-500'
                         }`}>
                           {u.full_name?.charAt(0).toUpperCase() || 'U'}
                         </div>
-                        <div className="min-w-0">
-                          <p className="font-bold text-gray-900 dark:text-white text-xs truncate">{u.full_name}</p>
+                        <div className="min-w-0 cursor-pointer" onClick={() => setSelectedUserForView(u)}>
+                          <p className="font-bold text-gray-900 dark:text-white text-xs truncate">
+                            {u.full_name || `${u.first_name || ''} ${u.last_name || ''}`.trim() || u.username}
+                          </p>
                           <p className="text-[10px] text-brand-600 dark:text-brand-400 font-mono font-semibold truncate">@{u.username}</p>
                         </div>
                       </div>
@@ -394,32 +458,43 @@ export const UsersPage = () => {
                     {/* Details */}
                     <div className="grid grid-cols-2 gap-2 text-[11px] text-gray-500 dark:text-gray-400 pt-1 border-t border-gray-100 dark:border-white/[0.04]">
                       <div className="truncate">
-                        <span className="text-[10px] uppercase font-bold text-gray-400 block">Email:</span>
-                        <span className="font-mono text-gray-700 dark:text-gray-300">{u.email || '—'}</span>
+                        <span className="text-[10px] uppercase font-bold text-gray-400 block">Tug'ilgan Sana & Yosh:</span>
+                        <span className="font-semibold text-gray-800 dark:text-gray-200">
+                          {birthInfo.text} {birthInfo.ageText ? `(${birthInfo.ageText})` : ''}
+                        </span>
                       </div>
                       <div className="truncate">
                         <span className="text-[10px] uppercase font-bold text-gray-400 block">Telefon:</span>
                         <span className="font-mono text-gray-700 dark:text-gray-300">{u.phone || '—'}</span>
                       </div>
+                      <div className="truncate">
+                        <span className="text-[10px] uppercase font-bold text-gray-400 block">Email:</span>
+                        <span className="font-mono text-gray-700 dark:text-gray-300">{u.email || '—'}</span>
+                      </div>
                       <div>
                         <span className="text-[10px] uppercase font-bold text-gray-400 block">Obuna:</span>
                         <span className="text-gray-800 dark:text-gray-200 font-semibold">{u.is_subscribed ? u.active_plan : 'Bepul'}</span>
                       </div>
-                      <div>
-                        <span className="text-[10px] uppercase font-bold text-gray-400 block">Rol:</span>
-                        <span className="text-gray-800 dark:text-gray-200 font-semibold">{u.role === 'admin' ? 'Admin' : 'Talaba'}</span>
-                      </div>
                     </div>
 
                     {/* Mobile Action Buttons */}
-                    <div className="flex items-center justify-end space-x-2 pt-2 border-t border-gray-100 dark:border-white/[0.04]">
+                    <div className="flex items-center justify-end space-x-1.5 pt-2 border-t border-gray-100 dark:border-white/[0.04]">
+                      {/* Batafsil (Eye) */}
+                      <button
+                        onClick={() => setSelectedUserForView(u)}
+                        className="px-2.5 py-1.5 rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400 font-bold text-xs flex items-center space-x-1 cursor-pointer"
+                      >
+                        <Eye className="w-3.5 h-3.5" />
+                        <span>Batafsil</span>
+                      </button>
+
                       {/* Qalam */}
                       <button
                         onClick={() => {
                           setSelectedUser(u);
                           setIsEditModalOpen(true);
                         }}
-                        className="px-2.5 py-1.5 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 font-bold text-xs flex items-center space-x-1"
+                        className="px-2.5 py-1.5 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 font-bold text-xs flex items-center space-x-1 cursor-pointer"
                       >
                         <Edit3 className="w-3.5 h-3.5" />
                         <span>Tahrirlash</span>
@@ -429,7 +504,7 @@ export const UsersPage = () => {
                       {!isSuperAdmin && (
                         <button
                           onClick={() => setBlockModalState({ isOpen: true, user: u })}
-                          className={`px-2.5 py-1.5 rounded-xl font-bold text-xs flex items-center space-x-1 ${
+                          className={`px-2.5 py-1.5 rounded-xl font-bold text-xs flex items-center space-x-1 cursor-pointer ${
                             u.is_blocked
                               ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
                               : 'bg-amber-500/10 text-amber-600 dark:text-amber-400'
@@ -444,7 +519,7 @@ export const UsersPage = () => {
                       {!isSuperAdmin && (
                         <button
                           onClick={() => setDeleteModalState({ isOpen: true, user: u })}
-                          className="px-2.5 py-1.5 rounded-xl bg-rose-500/10 text-rose-600 dark:text-rose-400 font-bold text-xs flex items-center space-x-1"
+                          className="px-2.5 py-1.5 rounded-xl bg-rose-500/10 text-rose-600 dark:text-rose-400 font-bold text-xs flex items-center space-x-1 cursor-pointer"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                           <span>O'chirish</span>
@@ -459,7 +534,20 @@ export const UsersPage = () => {
         )}
       </div>
 
-      {/* 1. Tahrirlash Modali (Qalam icon) */}
+      {/* 1. Batafsil Ko'rish Modali (Eye icon) */}
+      <UserDetailModal
+        isOpen={!!selectedUserForView}
+        onClose={() => setSelectedUserForView(null)}
+        user={selectedUserForView}
+        onEdit={(usr) => {
+          setSelectedUser(usr);
+          setIsEditModalOpen(true);
+        }}
+        onToggleBlock={(usr) => setBlockModalState({ isOpen: true, user: usr })}
+        onDelete={(usr) => setDeleteModalState({ isOpen: true, user: usr })}
+      />
+
+      {/* 2. Tahrirlash Modali (Qalam icon) */}
       <EditUserModal
         isOpen={isEditModalOpen}
         onClose={() => {
@@ -471,7 +559,7 @@ export const UsersPage = () => {
         loading={editMutation.isPending}
       />
 
-      {/* 2. Bloklash / Blokdan Chiqarish Modali (Ban icon) */}
+      {/* 3. Bloklash / Blokdan Chiqarish Modali (Ban icon) */}
       <ConfirmModal
         isOpen={blockModalState.isOpen}
         onClose={() => setBlockModalState({ isOpen: false, user: null })}
@@ -495,7 +583,7 @@ export const UsersPage = () => {
         cancelText="Bekor qilish"
       />
 
-      {/* 3. Butunlay O'chirish Modali (Savat icon) */}
+      {/* 4. Butunlay O'chirish Modali (Savat icon) */}
       <ConfirmModal
         isOpen={deleteModalState.isOpen}
         onClose={() => setDeleteModalState({ isOpen: false, user: null })}
@@ -507,8 +595,8 @@ export const UsersPage = () => {
         loading={deleteMutation.isPending}
         type="danger"
         title="Foydalanuvchini o'chirish (Savat)"
-        message={`DIQQAT! "${deleteModalState.user?.full_name}" (@${deleteModalState.user?.username}) hisobini o'chirmoqchimisiz? Ushbu foydalanuvchining barcha ma'lumotlari, darslik progressi va to'lovlari tizimdan butunlay o'chiriladi.`}
-        confirmText="Ha, butunlay o'chirish"
+        message={`DIQQAT! "${deleteModalState.user?.full_name}" (@${deleteModalState.user?.username}) hisobini o'chirmoqchimisiz? Foydalanuvchi profili va dars progressi o'chiriladi. (Moliyaviy to'lovlar tarixi hisobotlar uchun saqlab qolinadi).`}
+        confirmText="Ha, hisobni o'chirish"
         cancelText="Bekor qilish"
       />
 
