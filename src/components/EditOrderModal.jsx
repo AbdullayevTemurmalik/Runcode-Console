@@ -15,6 +15,14 @@ import adminApi from '../services/adminApi';
 import { CustomSelect } from './CustomSelect';
 
 export const EditOrderModal = ({ order, isOpen, onClose, onSaveSuccess }) => {
+  const [status, setStatus] = useState(order?.status || 'pending');
+  const [planName, setPlanName] = useState(order?.plan_name || '1_month');
+  const [amount, setAmount] = useState(order?.amount || (order?.plan_name === '7_days' ? 20000 : order?.plan_name === '3_months' ? 120000 : order?.plan_name === '2_months' ? 90000 : 50000));
+  const [paymentMethod, setPaymentMethod] = useState(order?.payment_method || 'apps');
+  const [rejectionReason, setRejectionReason] = useState(order?.rejection_reason || '');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape' && isOpen) {
@@ -31,22 +39,12 @@ export const EditOrderModal = ({ order, isOpen, onClose, onSaveSuccess }) => {
     };
   }, [isOpen, onClose]);
 
-  if (!isOpen || !order) return null;
-
-  const [status, setStatus] = useState(order.status || 'pending');
-  const [planName, setPlanName] = useState(order.plan_name || '1_month');
-  const [amount, setAmount] = useState(order.amount || (order.plan_name === '3_months' ? 120000 : order.plan_name === '2_months' ? 90000 : 50000));
-  const [paymentMethod, setPaymentMethod] = useState(order.payment_method || 'apps');
-  const [rejectionReason, setRejectionReason] = useState(order.rejection_reason || '');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
   useEffect(() => {
     if (order) {
       setStatus(order.status || 'pending');
       const p = order.plan_name || '1_month';
       setPlanName(p);
-      setAmount(order.amount || (p === '3_months' ? 120000 : p === '2_months' ? 90000 : 50000));
+      setAmount(order.amount || (p === '7_days' ? 20000 : p === '3_months' ? 120000 : p === '2_months' ? 90000 : 50000));
       setPaymentMethod(order.payment_method || 'apps');
       setRejectionReason(order.rejection_reason || '');
     }
@@ -54,10 +52,13 @@ export const EditOrderModal = ({ order, isOpen, onClose, onSaveSuccess }) => {
 
   const handlePlanChange = (newPlan) => {
     setPlanName(newPlan);
-    if (newPlan === '1_month') setAmount(50000);
+    if (newPlan === '7_days') setAmount(20000);
+    else if (newPlan === '1_month') setAmount(50000);
     else if (newPlan === '2_months') setAmount(90000);
     else if (newPlan === '3_months') setAmount(120000);
   };
+
+  if (!isOpen || !order) return null;
 
   const handleSave = async (e) => {
     e.preventDefault();

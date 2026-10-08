@@ -190,7 +190,7 @@ export const ExamsPage = () => {
       </div>
 
       {/* Filters & Search Row */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 p-4 rounded-3xl bg-white/95 dark:bg-[#101422]/90 backdrop-blur-xl border border-gray-200/80 dark:border-white/[0.07] shadow-xl shadow-gray-200/40 dark:shadow-black/40">
+      <div className="relative z-30 flex flex-col lg:flex-row lg:items-center justify-between gap-4 p-4 rounded-3xl bg-white/95 dark:bg-[#101422]/90 backdrop-blur-xl border border-gray-200/80 dark:border-white/[0.07] shadow-xl shadow-gray-200/40 dark:shadow-black/40">
         
         {/* Search */}
         <div className="relative w-full lg:w-80">
@@ -252,7 +252,7 @@ export const ExamsPage = () => {
           </div>
 
           {/* Custom Styled Course Dropdown */}
-          <div className="w-full sm:w-64">
+          <div className="w-full sm:w-64 relative z-40">
             <CustomSelect
               icon={BookOpen}
               options={[
@@ -279,7 +279,7 @@ export const ExamsPage = () => {
       </div>
 
       {/* Main Table */}
-      <div className="bg-white/95 dark:bg-[#101422]/90 backdrop-blur-xl rounded-3xl border border-gray-200/80 dark:border-white/[0.07] overflow-hidden shadow-xl shadow-gray-200/40 dark:shadow-black/40">
+      <div className="relative z-10 bg-white/95 dark:bg-[#101422]/90 backdrop-blur-xl rounded-3xl border border-gray-200/80 dark:border-white/[0.07] overflow-hidden shadow-xl shadow-gray-200/40 dark:shadow-black/40">
         {isLoading ? (
           <div className="py-24 flex flex-col items-center justify-center space-y-3">
             <Loader2 className="w-8 h-8 text-brand-500 animate-spin" />
