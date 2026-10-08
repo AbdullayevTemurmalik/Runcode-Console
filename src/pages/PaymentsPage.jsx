@@ -198,10 +198,24 @@ export const PaymentsPage = () => {
     approveMutation.mutate(orderId);
   };
 
-  const handleRejectConfirm = (reason, customNote) => {
-    if (!selectedOrderForReject) return;
+  const handleRejectConfirm = (arg1, arg2, arg3) => {
+    let orderId = selectedOrderForReject?.id;
+    let reason = arg1;
+    let customNote = arg2 || '';
+
+    // Agar 1-argument orderId bo'lsa (masalan: onConfirmReject(order.id, reason, note))
+    if (typeof arg1 === 'number' && typeof arg2 === 'string') {
+      orderId = arg1;
+      reason = arg2;
+      customNote = arg3 || '';
+    } else if (typeof arg3 === 'number') {
+      orderId = arg3;
+    }
+
+    if (!orderId || !reason) return;
+
     rejectMutation.mutate({
-      orderId: selectedOrderForReject.id,
+      orderId,
       reason,
       customNote
     });

@@ -36,7 +36,7 @@ export const RejectReasonModal = ({ isOpen, onClose, order, onConfirmReject }) =
     e.preventDefault();
     setLoading(true);
     try {
-      await onConfirmReject(order.id, selectedReason, customNote.trim());
+      await onConfirmReject(selectedReason, customNote.trim(), order.id);
       onClose();
     } catch (err) {
       console.error('Rad etishda xatolik:', err);
