@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { ShieldCheck, Sun, Moon, LogOut, Code2, Menu, X } from 'lucide-react';
+import { ShieldCheck, Sun, Moon, LogOut } from 'lucide-react';
 import { useAdminAuth } from '../context/AdminAuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { ConfirmModal } from './ConfirmModal';
 
-export const AdminNavbar = ({ onToggleMobileMenu, isMobileMenuOpen }) => {
+export const AdminNavbar = () => {
   const { admin, logout } = useAdminAuth();
   const { isDark, toggleTheme } = useTheme();
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
@@ -63,16 +63,6 @@ export const AdminNavbar = ({ onToggleMobileMenu, isMobileMenuOpen }) => {
           >
             <LogOut className="w-5 h-5" />
           </button>
-
-          {/* Mobile Hamburger Button */}
-          <button
-            onClick={onToggleMobileMenu}
-            className="p-2.5 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 lg:hidden transition-colors cursor-pointer"
-            aria-label="Menyu"
-          >
-            {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
-
         </div>
 
       </div>

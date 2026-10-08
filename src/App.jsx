@@ -29,7 +29,6 @@ const queryClient = new QueryClient({
 
 const AdminLayout = () => {
   const { isAuthenticated, loading } = useAdminAuth();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const { data: statsData } = useQuery({
     queryKey: ['admin-stats-count'],
@@ -50,18 +49,7 @@ const AdminLayout = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 dark:bg-[#0b0f19] dark:text-gray-100 flex flex-col transition-colors">
-      <AdminNavbar 
-        isMobileMenuOpen={isMobileMenuOpen}
-        onToggleMobileMenu={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-      />
-
-      {/* Mobile Drawer Backdrop */}
-      {isMobileMenuOpen && (
-        <div 
-          className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm lg:hidden animate-in fade-in"
-          onClick={() => setIsMobileMenuOpen(false)}
-        />
-      )}
+      <AdminNavbar />
 
       <div className="container-admin py-5 sm:py-7 flex-1 w-full min-w-0">
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start w-full min-w-0">
@@ -70,16 +58,6 @@ const AdminLayout = () => {
           <div className="hidden lg:block lg:sticky lg:top-24 flex-shrink-0">
             <AdminSidebar pendingCount={pendingCount} />
           </div>
-
-          {/* Mobile Drawer Sidebar */}
-          {isMobileMenuOpen && (
-            <div className="fixed top-16 left-0 bottom-0 z-50 w-72 p-4 bg-white dark:bg-[#101422] border-r border-gray-200 dark:border-white/[0.08] shadow-2xl overflow-y-auto lg:hidden animate-in slide-in-from-left duration-200">
-              <AdminSidebar 
-                pendingCount={pendingCount} 
-                onItemClick={() => setIsMobileMenuOpen(false)}
-              />
-            </div>
-          )}
           
           <main className="flex-1 w-full min-w-0 pb-24 lg:pb-0">
             <Routes>
