@@ -53,6 +53,7 @@ export const UsersPage = () => {
       adminApi.put(`/admin/users/${userId}/block`, { isBlocked }),
     onSuccess: (res) => {
       queryClient.invalidateQueries(['admin-users']);
+      queryClient.invalidateQueries(['admin-stats']);
       setBlockModalState({ isOpen: false, user: null });
       showToast(res.message || 'Amal muvaffaqiyatli bajarildi!');
     },
@@ -67,6 +68,7 @@ export const UsersPage = () => {
       adminApi.put(`/admin/users/${userId}`, formData),
     onSuccess: (res) => {
       queryClient.invalidateQueries(['admin-users']);
+      queryClient.invalidateQueries(['admin-stats']);
       setIsEditModalOpen(false);
       setSelectedUser(null);
       showToast(res.message || 'Foydalanuvchi muvaffaqiyatli yangilandi!');
@@ -82,6 +84,7 @@ export const UsersPage = () => {
       adminApi.delete(`/admin/users/${userId}`),
     onSuccess: (res) => {
       queryClient.invalidateQueries(['admin-users']);
+      queryClient.invalidateQueries(['admin-stats']);
       setDeleteModalState({ isOpen: false, user: null });
       showToast(res.message || 'Foydalanuvchi tizimdan o\'chirildi!');
     },
