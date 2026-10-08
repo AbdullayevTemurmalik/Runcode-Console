@@ -26,7 +26,6 @@ export const AdminDashboard = () => {
     activeSubscriptions: 0,
     pendingOrders: 0,
     totalRevenue: 0,
-    issuedCertificates: 0,
     trashCount: 0,
     planBreakdown: [],
     statusBreakdown: []
