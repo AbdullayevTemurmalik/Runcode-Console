@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import adminApi from '../services/adminApi';
 import { ConfirmModal } from '../components/ConfirmModal';
+import { getImageUrl } from '../utils/imageUrl';
 
 export const MediaPage = () => {
   const queryClient = useQueryClient();
@@ -109,7 +110,7 @@ export const MediaPage = () => {
   });
 
   const handleCopyLink = (url, filename) => {
-    const full = window.location.origin.replace(':5174', ':5000') + url;
+    const full = getImageUrl(url, true);
     navigator.clipboard.writeText(full);
     setCopiedFilename(filename);
     setTimeout(() => setCopiedFilename(null), 2500);
@@ -334,7 +335,7 @@ export const MediaPage = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
           {filteredMedia.map((item) => {
-            const fileUrl = `http://localhost:5000${item.url}`;
+            const fileUrl = item.fullUrl || getImageUrl(item.url, true);
             return (
               <div 
                 key={item.filename}

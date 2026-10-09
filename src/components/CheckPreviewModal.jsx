@@ -4,6 +4,7 @@ import {
   X, CheckCircle2, XCircle, Download, ExternalLink, FileText, CreditCard,
   ZoomIn, ZoomOut, RotateCw, RotateCcw
 } from 'lucide-react';
+import { getImageUrl } from '../utils/imageUrl';
 
 export const CheckPreviewModal = ({ isOpen, onClose, order, onApprove, onReject }) => {
   const [zoom, setZoom] = useState(1);
@@ -249,7 +250,7 @@ export const CheckPreviewModal = ({ isOpen, onClose, order, onApprove, onReject 
 
               <div className="flex items-center space-x-1">
                 <a
-                  href={order.receipt_url}
+                  href={getImageUrl(order.receipt_url)}
                   target="_blank"
                   rel="noreferrer"
                   title="To'liq hajmda yangi oynada ochish"
@@ -258,7 +259,7 @@ export const CheckPreviewModal = ({ isOpen, onClose, order, onApprove, onReject 
                   <ExternalLink className="w-4 h-4" />
                 </a>
                 <a
-                  href={order.receipt_url}
+                  href={getImageUrl(order.receipt_url)}
                   download={`receipt-order-${order.id}.jpg`}
                   target="_blank"
                   rel="noreferrer"
@@ -285,7 +286,7 @@ export const CheckPreviewModal = ({ isOpen, onClose, order, onApprove, onReject 
                   <FileText className="w-16 h-16 text-rose-500 mx-auto" />
                   <p className="text-xs text-gray-300 font-medium">PDF Chek Hujjati</p>
                   <a
-                    href={order.receipt_url}
+                    href={getImageUrl(order.receipt_url)}
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center space-x-1.5 px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs shadow-md transition"
@@ -302,7 +303,7 @@ export const CheckPreviewModal = ({ isOpen, onClose, order, onApprove, onReject 
                   onDoubleClick={handleDoubleClick}
                 >
                   <img
-                    src={order.receipt_url}
+                    src={getImageUrl(order.receipt_url)}
                     alt="Chek rasmi"
                     draggable={false}
                     style={{
