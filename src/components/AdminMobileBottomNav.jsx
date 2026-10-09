@@ -6,13 +6,15 @@ import {
   Award, 
   Image as ImageIcon, 
   BookOpen, 
-  Users 
+  Users,
+  Tag
 } from 'lucide-react';
 
 export const AdminMobileBottomNav = ({ pendingCount = 0 }) => {
   const navItems = [
     { label: 'Panel', path: '/', icon: LayoutDashboard },
     { label: "To'lovlar", path: '/payments', icon: CreditCard, badge: pendingCount },
+    { label: 'Promo', path: '/promocodes', icon: Tag },
     { label: 'Imtihon', path: '/exams', icon: Award },
     { label: 'Media', path: '/media', icon: ImageIcon },
     { label: 'Kurslar', path: '/courses', icon: BookOpen },
@@ -21,7 +23,7 @@ export const AdminMobileBottomNav = ({ pendingCount = 0 }) => {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden bg-white/95 dark:bg-[#0c101d]/95 backdrop-blur-2xl border-t border-gray-200/90 dark:border-white/[0.08] shadow-[0_-8px_30px_rgba(0,0,0,0.15)] pb-safe">
-      <nav className="grid grid-cols-6 items-center px-1 py-1.5 max-w-lg mx-auto">
+      <nav className="grid grid-cols-7 items-center px-1 py-1.5 max-w-lg mx-auto">
         {navItems.map((item) => {
           const Icon = item.icon;
           return (

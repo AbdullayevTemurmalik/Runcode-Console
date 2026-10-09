@@ -10,13 +10,15 @@ import {
   Image as ImageIcon,
   Award,
   Sparkles,
-  ArrowUpRight
+  ArrowUpRight,
+  Tag
 } from 'lucide-react';
 
 export const AdminSidebar = ({ pendingCount = 0, onItemClick }) => {
   const navItems = [
     { label: 'Boshqaruv Paneli', path: '/', icon: LayoutDashboard },
     { label: 'To\'lovlar & Cheklar', path: '/payments', icon: CreditCard, badge: pendingCount, badgeColor: 'bg-amber-500' },
+    { label: 'Promokodlar', path: '/promocodes', icon: Tag },
     { label: 'Imtihon Natijalari', path: '/exams', icon: Award },
     { label: 'Media Markazi', path: '/media', icon: ImageIcon },
     { label: 'Kurslar Boshqaruvi', path: '/courses', icon: BookOpen },

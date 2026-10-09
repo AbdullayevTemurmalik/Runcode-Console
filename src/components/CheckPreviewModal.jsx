@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { 
   X, CheckCircle2, XCircle, Download, ExternalLink, FileText, CreditCard,
-  ZoomIn, ZoomOut, RotateCw, RotateCcw
+  ZoomIn, ZoomOut, RotateCw, RotateCcw, Tag
 } from 'lucide-react';
 import { getImageUrl } from '../utils/imageUrl';
 
@@ -183,6 +183,14 @@ export const CheckPreviewModal = ({ isOpen, onClose, order, onApprove, onReject 
               <p className="font-extrabold text-brand-600 dark:text-brand-400 text-sm mt-0.5">
                 {order.amount?.toLocaleString()} so'm
               </p>
+              {order.applied_promocode && (
+                <div className="flex items-center gap-1 mt-1">
+                  <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 font-mono">
+                    <Tag className="w-2.5 h-2.5" />
+                    {order.applied_promocode} (-{order.discount_percent}%)
+                  </span>
+                </div>
+              )}
             </div>
             <div>
               <p className="text-gray-400 font-bold uppercase text-[9px] tracking-wider">To'lov Usuli</p>

@@ -11,7 +11,8 @@ import {
   Pencil, 
   Trash2, 
   RotateCcw, 
-  X 
+  X,
+  Tag
 } from 'lucide-react';
 
 export const PaymentsTable = ({
@@ -109,6 +110,14 @@ export const PaymentsTable = ({
                       <p className="font-mono font-black text-emerald-600 dark:text-emerald-400 text-xs">
                         {ord.amount.toLocaleString()} so'm
                       </p>
+                      {ord.applied_promocode && (
+                        <div className="flex items-center gap-1">
+                          <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 font-mono">
+                            <Tag className="w-2.5 h-2.5" />
+                            {ord.applied_promocode} (-{ord.discount_percent}%)
+                          </span>
+                        </div>
+                      )}
                     </div>
                   </td>
                   <td className="px-6 py-4">
