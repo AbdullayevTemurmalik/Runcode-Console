@@ -281,7 +281,7 @@ export const PaymentAnalyticsDiagram = ({ stats }) => {
               </span>
             </h2>
             <p className="text-xs text-gray-500 dark:text-gray-400 leading-snug">
-              10k, 20k, 30k, 50k va 100k+ ko'tariluvchi 4 ta alohida chiziq (tasdiqlanmagan tariflar to'g'ri 0 so'mda)
+              Barcha tariflar bo'yicha real-vaqt tushumlari dinamikasi (O'zbekiston vaqti bilan)
             </p>
           </div>
         </div>
@@ -420,9 +420,9 @@ export const PaymentAnalyticsDiagram = ({ stats }) => {
                     <span className="text-gray-800 dark:text-gray-200">
                       {conf.shortTitle}
                     </span>
-                    {!hasApproved && (
-                      <span className="text-[10px] text-gray-400 font-normal hidden sm:inline">(0 so'm)</span>
-                    )}
+                    <span className="text-[10px] text-gray-400 font-normal hidden sm:inline">
+                      ({plan?.revenue > 0 ? `${plan.revenue.toLocaleString()} so'm` : "0 so'm"})
+                    </span>
                   </button>
                 );
               })}
