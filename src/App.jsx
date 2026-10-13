@@ -16,6 +16,7 @@ import { MediaPage } from './pages/MediaPage';
 import { TrashPage } from './pages/TrashPage';
 import { ExamsPage } from './pages/ExamsPage';
 import { PromocodesPage } from './pages/PromocodesPage';
+import { NotificationsPage } from './pages/NotificationsPage';
 import adminApi from './services/adminApi';
 
 const queryClient = new QueryClient({
@@ -65,6 +66,7 @@ const AdminLayout = () => {
               <Route path="/" element={<AdminDashboard />} />
               <Route path="/payments" element={<PaymentsPage />} />
               <Route path="/promocodes" element={<PromocodesPage />} />
+              <Route path="/notifications" element={<NotificationsPage />} />
               <Route path="/trash" element={<Navigate to="/payments?status=trash" replace />} />
               <Route path="/exams" element={<ExamsPage />} />
               <Route path="/media" element={<MediaPage />} />

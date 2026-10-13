@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import adminApi from '../services/adminApi';
 import { ConfirmModal } from '../components/ConfirmModal';
+import { CustomSelect } from '../components/CustomSelect';
 
 const AVAILABLE_PLANS = [
   { key: '7_days', label: '7 kunlik (Plus)', color: 'text-sky-500 bg-sky-500/10 border-sky-500/20' },
@@ -111,8 +112,11 @@ export const PromocodesPage = () => {
 
     createMutation.mutate({
       code: formattedCode,
+      discountPercent: parseInt(discountPercent, 10),
       discount_percent: parseInt(discountPercent, 10),
+      durationHours: parseInt(durationHours, 10),
       duration_hours: parseInt(durationHours, 10),
+      excludedPlans: excludedPlans,
       excluded_plans: excludedPlans
     });
   };
@@ -230,48 +234,40 @@ export const PromocodesPage = () => {
                 <p className="text-[10px] text-gray-400 mt-1">Avtomatik KATTA harflarda saqlanadi</p>
               </div>
 
-              {/* Discount Percentage Select */}
+              {/* Discount Percentage Custom Select */}
               <div>
                 <label className="block text-[11px] font-black uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-1.5">
                   Chegirma Foizi
                 </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                    <Percent className="w-4 h-4" />
-                  </div>
-                  <select
-                    value={discountPercent}
-                    onChange={(e) => setDiscountPercent(e.target.value)}
-                    className="w-full pl-9 pr-3 py-2.5 rounded-xl bg-gray-50 dark:bg-white/[0.04] border border-gray-200 dark:border-white/[0.08] text-xs font-bold text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 cursor-pointer"
-                  >
-                    <option value="5" className="dark:bg-[#141824]">5% Chegirma</option>
-                    <option value="10" className="dark:bg-[#141824]">10% Chegirma</option>
-                    <option value="15" className="dark:bg-[#141824]">15% Chegirma</option>
-                    <option value="20" className="dark:bg-[#141824]">20% Chegirma</option>
-                  </select>
-                </div>
+                <CustomSelect
+                  value={discountPercent}
+                  onChange={(val) => setDiscountPercent(String(val))}
+                  icon={Percent}
+                  options={[
+                    { value: '5', label: '5% Chegirma' },
+                    { value: '10', label: '10% Chegirma' },
+                    { value: '15', label: '15% Chegirma' },
+                    { value: '20', label: '20% Chegirma' }
+                  ]}
+                />
                 <p className="text-[10px] text-gray-400 mt-1">Chegirma qiymati (5%, 10%, 15%, 20%)</p>
               </div>
 
-              {/* Duration Hours Select */}
+              {/* Duration Hours Custom Select */}
               <div>
                 <label className="block text-[11px] font-black uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-1.5">
                   Amal Qilish Muddati
                 </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                    <Clock className="w-4 h-4" />
-                  </div>
-                  <select
-                    value={durationHours}
-                    onChange={(e) => setDurationHours(e.target.value)}
-                    className="w-full pl-9 pr-3 py-2.5 rounded-xl bg-gray-50 dark:bg-white/[0.04] border border-gray-200 dark:border-white/[0.08] text-xs font-bold text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 cursor-pointer"
-                  >
-                    <option value="24" className="dark:bg-[#141824]">1 kun (24 soat)</option>
-                    <option value="48" className="dark:bg-[#141824]">2 kun (48 soat)</option>
-                    <option value="72" className="dark:bg-[#141824]">3 kun (72 soat)</option>
-                  </select>
-                </div>
+                <CustomSelect
+                  value={durationHours}
+                  onChange={(val) => setDurationHours(String(val))}
+                  icon={Clock}
+                  options={[
+                    { value: '24', label: '1 kun (24 soat)' },
+                    { value: '48', label: '2 kun (48 soat)' },
+                    { value: '72', label: '3 kun (72 soat)' }
+                  ]}
+                />
                 <p className="text-[10px] text-gray-400 mt-1">Belgilangan muddatdan so'ng tugaydi</p>
               </div>
             </div>

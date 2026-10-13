@@ -12,7 +12,8 @@ import {
   Trash2, 
   RotateCcw, 
   X,
-  Tag
+  Tag,
+  Ban
 } from 'lucide-react';
 
 export const PaymentsTable = ({
@@ -121,8 +122,18 @@ export const PaymentsTable = ({
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <span className="inline-flex items-center px-2.5 py-1 rounded-xl bg-gray-100 dark:bg-white/[0.04] text-gray-700 dark:text-gray-300 text-[11px] font-semibold border border-gray-200/50 dark:border-white/[0.05]">
-                      {ord.payment_method === 'apps' ? 'Ilova (Click/Payme/Uzum)' : 'Bankomat (Naqd)'}
+                    <span className={`inline-flex items-center px-2.5 py-1 rounded-xl text-[11px] font-semibold border ${
+                      ord.payment_method === 'uzum'
+                        ? 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20'
+                        : ord.payment_method === 'apps'
+                        ? 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20'
+                        : 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20'
+                    }`}>
+                      {ord.payment_method === 'uzum'
+                        ? 'Uzum Bank (QR)'
+                        : ord.payment_method === 'apps'
+                        ? 'Ilova (Payme/Click)'
+                        : 'Bankomat (Naqd)'}
                     </span>
                   </td>
                   <td className="px-6 py-4">
@@ -140,6 +151,18 @@ export const PaymentsTable = ({
                         {ord.rejection_reason && (
                           <p className="text-[10px] text-rose-500 max-w-xs truncate" title={ord.rejection_reason}>
                             {ord.rejection_reason}
+                          </p>
+                        )}
+                      </div>
+                    ) : ord.status === 'cancelled' ? (
+                      <div className="space-y-0.5">
+                        <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold bg-gray-500/10 text-gray-600 dark:text-gray-400 border border-gray-500/20">
+                          <Ban className="w-3 h-3 mr-1 text-gray-500" />
+                          Bekor qilingan
+                        </span>
+                        {(ord.cancellation_reason || ord.rejection_reason) && (
+                          <p className="text-[10px] text-gray-500 max-w-xs truncate" title={ord.cancellation_reason || ord.rejection_reason}>
+                            {ord.cancellation_reason || ord.rejection_reason}
                           </p>
                         )}
                       </div>

@@ -11,7 +11,8 @@ import {
   Award,
   Sparkles,
   ArrowUpRight,
-  Tag
+  Tag,
+  Bell
 } from 'lucide-react';
 
 export const AdminSidebar = ({ pendingCount = 0, onItemClick }) => {
@@ -19,6 +20,7 @@ export const AdminSidebar = ({ pendingCount = 0, onItemClick }) => {
     { label: 'Boshqaruv Paneli', path: '/', icon: LayoutDashboard },
     { label: 'To\'lovlar & Cheklar', path: '/payments', icon: CreditCard, badge: pendingCount, badgeColor: 'bg-amber-500' },
     { label: 'Promokodlar', path: '/promocodes', icon: Tag },
+    { label: 'Xabarnomalar', path: '/notifications', icon: Bell },
     { label: 'Imtihon Natijalari', path: '/exams', icon: Award },
     { label: 'Media Markazi', path: '/media', icon: ImageIcon },
     { label: 'Kurslar Boshqaruvi', path: '/courses', icon: BookOpen },

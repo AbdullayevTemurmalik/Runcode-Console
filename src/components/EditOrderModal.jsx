@@ -214,29 +214,41 @@ export const EditOrderModal = ({ order, isOpen, onClose, onSaveSuccess }) => {
             <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
               To'lov usuli:
             </label>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-3 gap-2">
               <button
                 type="button"
                 onClick={() => setPaymentMethod('apps')}
-                className={`py-2 px-3 rounded-xl border text-xs font-medium transition-all ${
+                className={`py-2 px-2 rounded-xl border text-xs font-medium transition-all ${
                   paymentMethod === 'apps'
                     ? 'bg-brand-50 dark:bg-brand-500/10 border-brand-500 text-brand-600 dark:text-brand-400 font-bold'
                     : 'bg-gray-50 dark:bg-gray-900/50 border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400'
                 }`}
               >
-                Mobil Ilova (Click/Payme)
+                Ilova (Click/Payme)
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setPaymentMethod('uzum')}
+                className={`py-2 px-2 rounded-xl border text-xs font-medium transition-all ${
+                  paymentMethod === 'uzum'
+                    ? 'bg-purple-50 dark:bg-purple-500/10 border-purple-500 text-purple-600 dark:text-purple-400 font-bold'
+                    : 'bg-gray-50 dark:bg-gray-900/50 border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400'
+                }`}
+              >
+                Uzum Bank (QR)
               </button>
 
               <button
                 type="button"
                 onClick={() => setPaymentMethod('bankomat')}
-                className={`py-2 px-3 rounded-xl border text-xs font-medium transition-all ${
+                className={`py-2 px-2 rounded-xl border text-xs font-medium transition-all ${
                   paymentMethod === 'bankomat'
                     ? 'bg-brand-50 dark:bg-brand-500/10 border-brand-500 text-brand-600 dark:text-brand-400 font-bold'
                     : 'bg-gray-50 dark:bg-gray-900/50 border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400'
                 }`}
               >
-                Bankomat Orqali
+                Bankomat (Naqd)
               </button>
             </div>
           </div>

@@ -195,10 +195,28 @@ export const CheckPreviewModal = ({ isOpen, onClose, order, onApprove, onReject 
             <div>
               <p className="text-gray-400 font-bold uppercase text-[9px] tracking-wider">To'lov Usuli</p>
               <p className="font-bold text-gray-900 dark:text-white capitalize mt-0.5">
-                {order.payment_method === 'apps' ? "To'lov ilovasi (Payme/Click)" : 'Bankomat'}
+                {order.payment_method === 'uzum'
+                  ? 'Uzum Bank (QR-kod)'
+                  : order.payment_method === 'apps'
+                  ? "To'lov ilovasi (Payme/Click)"
+                  : 'Bankomat (Naqd)'}
               </p>
             </div>
           </div>
+
+          {/* Bekor qilingan yoki rad etilgan bo'lsa sababi */}
+          {(order.status === 'cancelled' || order.status === 'rejected') && (
+            <div className={`p-3 rounded-2xl border text-xs ${
+              order.status === 'cancelled'
+                ? 'bg-gray-500/10 border-gray-500/25 text-gray-700 dark:text-gray-300'
+                : 'bg-rose-500/10 border-rose-500/25 text-rose-700 dark:text-rose-300'
+            }`}>
+              <span className="font-black uppercase tracking-wider">
+                {order.status === 'cancelled' ? 'Bekor qilingan:' : 'Rad etilgan:'}
+              </span>{' '}
+              <span>{order.cancellation_reason || order.rejection_reason || 'Sabab ko\'rsatilmadi'}</span>
+            </div>
+          )}
 
           {/* Receipt Zoom & Controls Toolbar */}
           {!isPdf && order.receipt_url && (

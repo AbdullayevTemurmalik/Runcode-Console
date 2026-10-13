@@ -17,7 +17,8 @@ export const PaymentsFilterTabs = ({
           { key: '', label: 'Barchasi', count: null },
           { key: 'pending', label: 'Kutilmoqda', count: pendingCount, countColor: 'bg-amber-500 text-white' },
           { key: 'approved', label: 'Tasdiqlangan', count: null },
-          { key: 'rejected', label: 'Rad etilgan', count: null }
+          { key: 'rejected', label: 'Rad etilgan', count: null },
+          { key: 'cancelled', label: 'Bekor qilingan', count: null }
         ].map((tab) => (
           <button
             key={tab.key}
