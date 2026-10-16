@@ -125,14 +125,14 @@ export const PaymentsTable = ({
                     <span className={`inline-flex items-center px-2.5 py-1 rounded-xl text-[11px] font-semibold border ${
                       ord.payment_method === 'uzum'
                         ? 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20'
-                        : ord.payment_method === 'apps'
+                        : (ord.payment_method === 'apps' || ord.payment_method === 'click')
                         ? 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20'
                         : 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20'
                     }`}>
                       {ord.payment_method === 'uzum'
                         ? 'Uzum Bank (QR)'
-                        : ord.payment_method === 'apps'
-                        ? 'Ilova (Payme/Click)'
+                        : (ord.payment_method === 'apps' || ord.payment_method === 'click')
+                        ? 'Click Up (QR)'
                         : 'Bankomat (Naqd)'}
                     </span>
                   </td>

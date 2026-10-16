@@ -197,8 +197,8 @@ export const CheckPreviewModal = ({ isOpen, onClose, order, onApprove, onReject 
               <p className="font-bold text-gray-900 dark:text-white capitalize mt-0.5">
                 {order.payment_method === 'uzum'
                   ? 'Uzum Bank (QR-kod)'
-                  : order.payment_method === 'apps'
-                  ? "To'lov ilovasi (Payme/Click)"
+                  : (order.payment_method === 'apps' || order.payment_method === 'click')
+                  ? 'Click Up (QR-kod)'
                   : 'Bankomat (Naqd)'}
               </p>
             </div>
