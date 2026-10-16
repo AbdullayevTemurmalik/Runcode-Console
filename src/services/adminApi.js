@@ -1,7 +1,19 @@
 import axios from 'axios';
 
+const getAdminBaseUrl = () => {
+  const envUrl = import.meta.env.VITE_API_URL;
+  if (envUrl && envUrl !== '/api') {
+    return envUrl;
+  }
+  // Production muhitida (Vercel yoki custom domen) bevosita global Render backendga ulanish
+  if (typeof window !== 'undefined' && !window.location.hostname.includes('localhost') && !window.location.hostname.includes('127.0.0.1')) {
+    return 'https://runcode-engine.onrender.com/api';
+  }
+  return '/api';
+};
+
 const adminApi = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '/api',
+  baseURL: getAdminBaseUrl(),
   headers: {
     'Content-Type': 'application/json'
   }

@@ -16,7 +16,12 @@ export const getImageUrl = (path, forceAbsolute = false) => {
   }
   
   const cleanPath = path.startsWith('/') ? path : `/${path}`;
-  const apiUrl = import.meta.env.VITE_API_URL || '';
+  const rawEnv = import.meta.env.VITE_API_URL;
+  const apiUrl = (rawEnv && rawEnv !== '/api')
+    ? rawEnv
+    : (typeof window !== 'undefined' && !window.location.hostname.includes('localhost') && !window.location.hostname.includes('127.0.0.1')
+        ? 'https://runcode-engine.onrender.com/api'
+        : '');
   
   if (apiUrl.startsWith('http://') || apiUrl.startsWith('https://')) {
     try {
