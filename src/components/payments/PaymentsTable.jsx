@@ -99,13 +99,13 @@ export const PaymentsTable = ({
                           : 'bg-purple-500/10 text-purple-500 border border-purple-500/20'
                       }`}>
                         {ord.plan_name === '7_days'
-                          ? 'Plus (7 Kunlik)'
+                          ? 'Test Plus (7 Kunlik)'
                           : ord.plan_name === '1_month'
                           ? 'Pro (1 Oylik)'
                           : ord.plan_name === '2_months'
                           ? 'Pro+ (2 Oylik)'
-                          : ord.plan_name === '3_months'
-                          ? 'Ultra (3 Oylik)'
+                          : (ord.plan_name === '3_months' || ord.plan_name === 'ultra' || ord.plan_name === 'max')
+                          ? 'Max (3 Oylik)'
                           : (ord.plan_name || 'Tarif')}
                       </span>
                       <p className="font-mono font-black text-emerald-600 dark:text-emerald-400 text-xs">

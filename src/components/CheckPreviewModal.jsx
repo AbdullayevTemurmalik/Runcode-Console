@@ -105,13 +105,13 @@ export const CheckPreviewModal = ({ isOpen, onClose, order, onApprove, onReject 
   const getPlanBadge = (planName) => {
     switch (planName) {
       case '7_days':
-        return { name: 'Test (7 Kunlik)', color: 'bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border-cyan-500/20' };
+        return { name: 'Test Plus (7 Kunlik)', color: 'bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/20' };
       case '1_month':
-        return { name: 'Plus (1 Oylik)', color: 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20' };
+        return { name: 'Pro (1 Oylik)', color: 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20' };
       case '2_months':
-        return { name: 'Pro (2 Oylik)', color: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20' };
+        return { name: 'Pro+ (2 Oylik)', color: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20' };
       case '3_months':
-        return { name: 'Ultra (3 Oylik)', color: 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20' };
+        return { name: 'Max (3 Oylik)', color: 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20' };
       default:
         return { name: planName || 'Tarif', color: 'bg-gray-500/10 text-gray-600 dark:text-gray-400 border-gray-500/20' };
     }

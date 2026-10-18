@@ -30,7 +30,7 @@ export const PaymentAnalyticsDiagram = ({ stats }) => {
   const planConfigs = {
     '7_days': {
       id: '7_days',
-      title: 'Plus (7 Kunlik)',
+      title: 'Test Plus (7 Kunlik)',
       shortTitle: '7 Kunlik',
       price: 20000,
       priceFormatted: "20,000 so'm",
@@ -63,7 +63,7 @@ export const PaymentAnalyticsDiagram = ({ stats }) => {
     },
     '3_months': {
       id: '3_months',
-      title: 'Ultra (3 Oylik)',
+      title: 'Max (3 Oylik)',
       shortTitle: '3 Oylik',
       price: 120000,
       priceFormatted: "120,000 so'm",
@@ -87,10 +87,10 @@ export const PaymentAnalyticsDiagram = ({ stats }) => {
   const normalizePlanKey = (name) => {
     if (!name) return '7_days';
     const n = String(name).toLowerCase().trim();
-    if (n === '7_days' || n === 'plus' || n.includes('7')) return '7_days';
+    if (n === '7_days' || n === 'plus' || n.includes('test_plus') || n.includes('7')) return '7_days';
     if (n === '1_month' || n === 'pro' || n.includes('1')) return '1_month';
     if (n === '2_months' || n === 'pro_plus' || n === 'pro+' || n.includes('2')) return '2_months';
-    if (n === '3_months' || n === 'ultra' || n.includes('3')) return '3_months';
+    if (n === '3_months' || n === 'ultra' || n === 'max' || n.includes('3')) return '3_months';
     return '7_days';
   };
 

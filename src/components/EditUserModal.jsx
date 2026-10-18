@@ -141,10 +141,10 @@ export const EditUserModal = ({ isOpen, onClose, user, onSave, loading }) => {
                 onChange={(val) => setFormData({ ...formData, planName: val })}
                 options={[
                   { value: 'none', label: 'O\'zgarishsiz qoldirish', subtext: 'Mavjud holat saqlanadi' },
-                  { value: '7_days', label: 'Plus Obuna (7 Kunlik)', subtext: '20 000 so\'m (Test sinov)' },
-                  { value: '1_month', label: 'Pro Obuna (1 Oylik)', subtext: '50 000 so\'m' },
-                  { value: '2_months', label: 'Pro+ Obuna (2 Oylik)', subtext: '90 000 so\'m (Tavsiya)' },
-                  { value: '3_months', label: 'Ultra Obuna (3 Oylik)', subtext: '120 000 so\'m (Super Tejam)' }
+                  { value: '7_days', label: 'Test Plus Obuna (7 Kunlik)', subtext: '20 000 so\'m (TEST PLUS)' },
+                  { value: '1_month', label: 'Pro Obuna (1 Oylik)', subtext: '50 000 so\'m (PRO)' },
+                  { value: '2_months', label: 'Pro+ Obuna (2 Oylik)', subtext: '90 000 so\'m (PRO+ • TAVSIYA)' },
+                  { value: '3_months', label: 'Max Obuna (3 Oylik)', subtext: '120 000 so\'m (MAX)' }
                 ]}
               />
             </div>

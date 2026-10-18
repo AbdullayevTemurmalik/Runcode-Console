@@ -22,10 +22,10 @@ import { ConfirmModal } from '../components/ConfirmModal';
 import { CustomSelect } from '../components/CustomSelect';
 
 const AVAILABLE_PLANS = [
-  { key: '7_days', label: '7 kunlik (Plus)', color: 'text-sky-500 bg-sky-500/10 border-sky-500/20' },
+  { key: '7_days', label: '7 kunlik (Test Plus)', color: 'text-sky-500 bg-sky-500/10 border-sky-500/20' },
   { key: '1_month', label: '1 oylik (Pro)', color: 'text-blue-500 bg-blue-500/10 border-blue-500/20' },
   { key: '2_months', label: '2 oylik (Pro+)', color: 'text-emerald-500 bg-emerald-500/10 border-emerald-500/20' },
-  { key: '3_months', label: '3 oylik (Ultra)', color: 'text-purple-500 bg-purple-500/10 border-purple-500/20' },
+  { key: '3_months', label: '3 oylik (Max)', color: 'text-purple-500 bg-purple-500/10 border-purple-500/20' },
 ];
 
 export const PromocodesPage = () => {
