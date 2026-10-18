@@ -43,7 +43,6 @@ export const UserDetailModal = ({ isOpen, onClose, user, onEdit, onToggleBlock, 
   };
 
   const birthInfo = formatBirth(user.birth_date);
-  const isSuperAdmin = user.username === 'temurmalik' || user.username === 'temur';
 
   // Format date time helper
   const formatDateTime = (dt) => {
@@ -261,35 +260,31 @@ export const UserDetailModal = ({ isOpen, onClose, user, onEdit, onToggleBlock, 
                 <span>Tahrirlash</span>
               </button>
 
-              {!isSuperAdmin && (
-                <>
-                  <button
-                    onClick={() => {
-                      onClose();
-                      onToggleBlock(user);
-                    }}
-                    className={`px-4 py-2.5 rounded-xl text-xs font-bold flex items-center space-x-1.5 transition cursor-pointer ${
-                      user.is_blocked
-                        ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-600/20'
-                        : 'bg-amber-600 hover:bg-amber-500 text-white shadow-amber-600/20'
-                    }`}
-                  >
-                    <Ban className="w-3.5 h-3.5" />
-                    <span>{user.is_blocked ? "Blokdan chiqarish" : "Bloklash"}</span>
-                  </button>
+              <button
+                onClick={() => {
+                  onClose();
+                  onToggleBlock(user);
+                }}
+                className={`px-4 py-2.5 rounded-xl text-xs font-bold flex items-center space-x-1.5 transition cursor-pointer ${
+                  user.is_blocked
+                    ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-600/20'
+                    : 'bg-amber-600 hover:bg-amber-500 text-white shadow-amber-600/20'
+                }`}
+              >
+                <Ban className="w-3.5 h-3.5" />
+                <span>{user.is_blocked ? "Blokdan chiqarish" : "Bloklash"}</span>
+              </button>
 
-                  <button
-                    onClick={() => {
-                      onClose();
-                      onDelete(user);
-                    }}
-                    className="px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold flex items-center space-x-1.5 shadow-md shadow-rose-600/20 transition cursor-pointer"
-                  >
-                    <Trash2 className="w-3.5 h-3.5" />
-                    <span>O'chirish</span>
-                  </button>
-                </>
-              )}
+              <button
+                onClick={() => {
+                  onClose();
+                  onDelete(user);
+                }}
+                className="px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold flex items-center space-x-1.5 shadow-md shadow-rose-600/20 transition cursor-pointer"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+                <span>O'chirish</span>
+              </button>
             </div>
           </div>
 

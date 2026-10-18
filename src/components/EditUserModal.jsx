@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { X, User, Phone, AtSign, Loader2, Save } from 'lucide-react';
+import { X, User, Phone, AtSign, Mail, Loader2, Save } from 'lucide-react';
 import { CustomSelect } from './CustomSelect';
 
 export const EditUserModal = ({ isOpen, onClose, user, onSave, loading }) => {
   const [formData, setFormData] = useState({
     fullName: '',
     username: '',
+    email: '',
     phone: '',
     role: 'user',
     planName: 'none'
@@ -17,6 +18,7 @@ export const EditUserModal = ({ isOpen, onClose, user, onSave, loading }) => {
       setFormData({
         fullName: user.full_name || '',
         username: user.username || '',
+        email: user.email || '',
         phone: user.phone || '',
         role: user.role || 'user',
         planName: 'none'
@@ -101,6 +103,21 @@ export const EditUserModal = ({ isOpen, onClose, user, onSave, loading }) => {
             </div>
           </div>
 
+          {/* Email */}
+          <div className="space-y-1.5">
+            <label className="font-bold text-gray-700 dark:text-gray-300">Email Manzil</label>
+            <div className="relative">
+              <Mail className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <input
+                type="email"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value.toLowerCase().trim() })}
+                placeholder="user@gmail.com"
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50/50 dark:bg-white/[0.03] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500 font-mono"
+              />
+            </div>
+          </div>
+
           {/* Telefon */}
           <div className="space-y-1.5">
             <label className="font-bold text-gray-700 dark:text-gray-300">Telefon Raqami</label>
@@ -125,7 +142,6 @@ export const EditUserModal = ({ isOpen, onClose, user, onSave, loading }) => {
               <CustomSelect
                 value={formData.role}
                 onChange={(val) => setFormData({ ...formData, role: val })}
-                disabled={user.username === 'temurmalik'}
                 options={[
                   { value: 'user', label: 'Talaba (Oddiy Foydalanuvchi)', subtext: 'Darsliklar va topshiriqlar' },
                   { value: 'admin', label: 'Ma\'mur (Admin)', subtext: 'To\'liq boshqaruv huquqlari' }

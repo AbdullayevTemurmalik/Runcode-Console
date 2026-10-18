@@ -256,7 +256,6 @@ export const UsersPage = () => {
                 </thead>
                 <tbody className="divide-y divide-gray-100 dark:divide-white/[0.04]">
                   {filteredUsers.map((u) => {
-                    const isSuperAdmin = u.username === 'temurmalik' || u.username === 'temur';
                     const birthInfo = formatBirthDateAndAge(u.birth_date);
 
                     return (
@@ -375,30 +374,26 @@ export const UsersPage = () => {
                             </button>
 
                             {/* Bloklash (Ban icon) */}
-                            {!isSuperAdmin && (
-                              <button
-                                onClick={() => setBlockModalState({ isOpen: true, user: u })}
-                                className={`p-1.5 sm:p-2 rounded-xl transition-all cursor-pointer ${
-                                  u.is_blocked
-                                    ? 'text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 border border-transparent hover:border-emerald-500/20'
-                                    : 'text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/40 border border-transparent hover:border-amber-500/20'
-                                }`}
-                                title={u.is_blocked ? "Blokdan chiqarish" : "Bloklash (Ban)"}
-                              >
-                                {u.is_blocked ? <Unlock className="w-4 h-4" /> : <Ban className="w-4 h-4" />}
-                              </button>
-                            )}
+                            <button
+                              onClick={() => setBlockModalState({ isOpen: true, user: u })}
+                              className={`p-1.5 sm:p-2 rounded-xl transition-all cursor-pointer ${
+                                u.is_blocked
+                                  ? 'text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 border border-transparent hover:border-emerald-500/20'
+                                  : 'text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/40 border border-transparent hover:border-amber-500/20'
+                              }`}
+                              title={u.is_blocked ? "Blokdan chiqarish" : "Bloklash (Ban)"}
+                            >
+                              {u.is_blocked ? <Unlock className="w-4 h-4" /> : <Ban className="w-4 h-4" />}
+                            </button>
 
                             {/* O'chirish (Savat icon) */}
-                            {!isSuperAdmin && (
-                              <button
-                                onClick={() => setDeleteModalState({ isOpen: true, user: u })}
-                                className="p-1.5 sm:p-2 rounded-xl text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 border border-transparent hover:border-rose-500/20 transition-all cursor-pointer"
-                                title="O'chirish (Savat)"
-                              >
-                                <Trash2 className="w-4 h-4" />
-                              </button>
-                            )}
+                            <button
+                              onClick={() => setDeleteModalState({ isOpen: true, user: u })}
+                              className="p-1.5 sm:p-2 rounded-xl text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 border border-transparent hover:border-rose-500/20 transition-all cursor-pointer"
+                              title="O'chirish (Savat)"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
                           </div>
                         </td>
                       </tr>
@@ -411,7 +406,6 @@ export const UsersPage = () => {
             {/* Mobile Card View (< 768px - down to 380px) */}
             <div className="md:hidden divide-y divide-gray-100 dark:divide-white/[0.04] p-2 space-y-2">
               {filteredUsers.map((u) => {
-                const isSuperAdmin = u.username === 'temurmalik' || u.username === 'temur';
                 const birthInfo = formatBirthDateAndAge(u.birth_date);
 
                 return (
@@ -501,30 +495,26 @@ export const UsersPage = () => {
                       </button>
 
                       {/* Ban */}
-                      {!isSuperAdmin && (
-                        <button
-                          onClick={() => setBlockModalState({ isOpen: true, user: u })}
-                          className={`px-2.5 py-1.5 rounded-xl font-bold text-xs flex items-center space-x-1 cursor-pointer ${
-                            u.is_blocked
-                              ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
-                              : 'bg-amber-500/10 text-amber-600 dark:text-amber-400'
-                          }`}
-                        >
-                          {u.is_blocked ? <Unlock className="w-3.5 h-3.5" /> : <Ban className="w-3.5 h-3.5" />}
-                          <span>{u.is_blocked ? 'Ochish' : 'Bloklash'}</span>
-                        </button>
-                      )}
+                      <button
+                        onClick={() => setBlockModalState({ isOpen: true, user: u })}
+                        className={`px-2.5 py-1.5 rounded-xl font-bold text-xs flex items-center space-x-1 cursor-pointer ${
+                          u.is_blocked
+                            ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
+                            : 'bg-amber-500/10 text-amber-600 dark:text-amber-400'
+                        }`}
+                      >
+                        {u.is_blocked ? <Unlock className="w-3.5 h-3.5" /> : <Ban className="w-3.5 h-3.5" />}
+                        <span>{u.is_blocked ? 'Ochish' : 'Bloklash'}</span>
+                      </button>
 
                       {/* Savat */}
-                      {!isSuperAdmin && (
-                        <button
-                          onClick={() => setDeleteModalState({ isOpen: true, user: u })}
-                          className="px-2.5 py-1.5 rounded-xl bg-rose-500/10 text-rose-600 dark:text-rose-400 font-bold text-xs flex items-center space-x-1 cursor-pointer"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                          <span>O'chirish</span>
-                        </button>
-                      )}
+                      <button
+                        onClick={() => setDeleteModalState({ isOpen: true, user: u })}
+                        className="px-2.5 py-1.5 rounded-xl bg-rose-500/10 text-rose-600 dark:text-rose-400 font-bold text-xs flex items-center space-x-1 cursor-pointer"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                        <span>O'chirish</span>
+                      </button>
                     </div>
                   </div>
                 );
