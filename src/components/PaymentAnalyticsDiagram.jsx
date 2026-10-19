@@ -32,8 +32,8 @@ export const PaymentAnalyticsDiagram = ({ stats }) => {
       id: '7_days',
       title: 'Test Plus (7 Kunlik)',
       shortTitle: '7 Kunlik',
-      price: 20000,
-      priceFormatted: "20,000 so'm",
+      price: 15000,
+      priceFormatted: "15,000 so'm",
       color: '#0ea5e9', // Och havorang (Sky Blue)
       gradient: 'from-sky-400 to-cyan-500',
       bgLight: 'bg-sky-500/10 text-sky-500 border-sky-500/20',
@@ -43,8 +43,8 @@ export const PaymentAnalyticsDiagram = ({ stats }) => {
       id: '1_month',
       title: 'Pro (1 Oylik)',
       shortTitle: '1 Oylik',
-      price: 50000,
-      priceFormatted: "50,000 so'm",
+      price: 40000,
+      priceFormatted: "40,000 so'm",
       color: '#2563eb', // To'q ko'k (Royal Blue)
       gradient: 'from-blue-500 to-indigo-600',
       bgLight: 'bg-blue-500/10 text-blue-500 border-blue-500/20',
@@ -54,8 +54,8 @@ export const PaymentAnalyticsDiagram = ({ stats }) => {
       id: '2_months',
       title: 'Pro+ (2 Oylik)',
       shortTitle: '2 Oylik',
-      price: 90000,
-      priceFormatted: "90,000 so'm",
+      price: 80000,
+      priceFormatted: "80,000 so'm",
       color: '#10b981', // Zumrad yashil (Emerald Green)
       gradient: 'from-emerald-500 to-teal-500',
       bgLight: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20',

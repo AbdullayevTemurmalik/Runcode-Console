@@ -17,7 +17,7 @@ import { CustomSelect } from './CustomSelect';
 export const EditOrderModal = ({ order, isOpen, onClose, onSaveSuccess }) => {
   const [status, setStatus] = useState(order?.status || 'pending');
   const [planName, setPlanName] = useState(order?.plan_name || '1_month');
-  const [amount, setAmount] = useState(order?.amount || (order?.plan_name === '7_days' ? 20000 : order?.plan_name === '3_months' ? 120000 : order?.plan_name === '2_months' ? 90000 : 50000));
+  const [amount, setAmount] = useState(order?.amount || (order?.plan_name === '7_days' ? 15000 : order?.plan_name === '3_months' ? 120000 : order?.plan_name === '2_months' ? 80000 : 40000));
   const [paymentMethod, setPaymentMethod] = useState(order?.payment_method || 'apps');
   const [rejectionReason, setRejectionReason] = useState(order?.rejection_reason || '');
   const [loading, setLoading] = useState(false);
@@ -44,7 +44,7 @@ export const EditOrderModal = ({ order, isOpen, onClose, onSaveSuccess }) => {
       setStatus(order.status || 'pending');
       const p = order.plan_name || '1_month';
       setPlanName(p);
-      setAmount(order.amount || (p === '7_days' ? 20000 : p === '3_months' ? 120000 : p === '2_months' ? 90000 : 50000));
+      setAmount(order.amount || (p === '7_days' ? 15000 : p === '3_months' ? 120000 : p === '2_months' ? 80000 : 40000));
       setPaymentMethod(order.payment_method || 'apps');
       setRejectionReason(order.rejection_reason || '');
     }
@@ -52,9 +52,9 @@ export const EditOrderModal = ({ order, isOpen, onClose, onSaveSuccess }) => {
 
   const handlePlanChange = (newPlan) => {
     setPlanName(newPlan);
-    if (newPlan === '7_days') setAmount(20000);
-    else if (newPlan === '1_month') setAmount(50000);
-    else if (newPlan === '2_months') setAmount(90000);
+    if (newPlan === '7_days') setAmount(15000);
+    else if (newPlan === '1_month') setAmount(40000);
+    else if (newPlan === '2_months') setAmount(80000);
     else if (newPlan === '3_months') setAmount(120000);
   };
 
@@ -187,9 +187,9 @@ export const EditOrderModal = ({ order, isOpen, onClose, onSaveSuccess }) => {
                 value={planName}
                 onChange={(val) => handlePlanChange(val)}
                 options={[
-                  { value: '7_days', label: '7 Kunlik (Test Plus - 20 000 so\'m)' },
-                  { value: '1_month', label: '1 Oylik (Pro - 50 000 so\'m)' },
-                  { value: '2_months', label: '2 Oylik (Pro+ - 90 000 so\'m)' },
+                  { value: '7_days', label: '7 Kunlik (Test Plus - 15 000 so\'m)' },
+                  { value: '1_month', label: '1 Oylik (Pro - 40 000 so\'m)' },
+                  { value: '2_months', label: '2 Oylik (Pro+ - 80 000 so\'m)' },
                   { value: '3_months', label: '3 Oylik (Max - 120 000 so\'m)' }
                 ]}
               />
