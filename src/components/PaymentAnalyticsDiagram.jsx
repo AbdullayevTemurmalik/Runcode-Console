@@ -54,8 +54,8 @@ export const PaymentAnalyticsDiagram = ({ stats }) => {
       id: '2_months',
       title: 'Pro+ (2 Oylik)',
       shortTitle: '2 Oylik',
-      price: 80000,
-      priceFormatted: "80,000 so'm",
+      price: 70000,
+      priceFormatted: "70,000 so'm",
       color: '#10b981', // Zumrad yashil (Emerald Green)
       gradient: 'from-emerald-500 to-teal-500',
       bgLight: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20',
@@ -65,8 +65,8 @@ export const PaymentAnalyticsDiagram = ({ stats }) => {
       id: '3_months',
       title: 'Max (3 Oylik)',
       shortTitle: '3 Oylik',
-      price: 120000,
-      priceFormatted: "120,000 so'm",
+      price: 100000,
+      priceFormatted: "100,000 so'm",
       color: '#a855f7', // Binafsha / Pushti (Purple)
       gradient: 'from-purple-500 to-pink-500',
       bgLight: 'bg-purple-500/10 text-purple-500 border-purple-500/20',

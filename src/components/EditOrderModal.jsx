@@ -17,7 +17,7 @@ import { CustomSelect } from './CustomSelect';
 export const EditOrderModal = ({ order, isOpen, onClose, onSaveSuccess }) => {
   const [status, setStatus] = useState(order?.status || 'pending');
   const [planName, setPlanName] = useState(order?.plan_name || '1_month');
-  const [amount, setAmount] = useState(order?.amount || (order?.plan_name === '7_days' ? 15000 : order?.plan_name === '3_months' ? 120000 : order?.plan_name === '2_months' ? 80000 : 40000));
+  const [amount, setAmount] = useState(order?.amount || (order?.plan_name === '7_days' ? 15000 : order?.plan_name === '3_months' ? 100000 : order?.plan_name === '2_months' ? 70000 : 40000));
   const [paymentMethod, setPaymentMethod] = useState(order?.payment_method || 'apps');
   const [rejectionReason, setRejectionReason] = useState(order?.rejection_reason || '');
   const [loading, setLoading] = useState(false);
@@ -44,7 +44,7 @@ export const EditOrderModal = ({ order, isOpen, onClose, onSaveSuccess }) => {
       setStatus(order.status || 'pending');
       const p = order.plan_name || '1_month';
       setPlanName(p);
-      setAmount(order.amount || (p === '7_days' ? 15000 : p === '3_months' ? 120000 : p === '2_months' ? 80000 : 40000));
+      setAmount(order.amount || (p === '7_days' ? 15000 : p === '3_months' ? 100000 : p === '2_months' ? 70000 : 40000));
       setPaymentMethod(order.payment_method || 'apps');
       setRejectionReason(order.rejection_reason || '');
     }
@@ -54,8 +54,8 @@ export const EditOrderModal = ({ order, isOpen, onClose, onSaveSuccess }) => {
     setPlanName(newPlan);
     if (newPlan === '7_days') setAmount(15000);
     else if (newPlan === '1_month') setAmount(40000);
-    else if (newPlan === '2_months') setAmount(80000);
-    else if (newPlan === '3_months') setAmount(120000);
+    else if (newPlan === '2_months') setAmount(70000);
+    else if (newPlan === '3_months') setAmount(100000);
   };
 
   if (!isOpen || !order) return null;
@@ -189,8 +189,8 @@ export const EditOrderModal = ({ order, isOpen, onClose, onSaveSuccess }) => {
                 options={[
                   { value: '7_days', label: '7 Kunlik (Test Plus - 15 000 so\'m)' },
                   { value: '1_month', label: '1 Oylik (Pro - 40 000 so\'m)' },
-                  { value: '2_months', label: '2 Oylik (Pro+ - 80 000 so\'m)' },
-                  { value: '3_months', label: '3 Oylik (Max - 120 000 so\'m)' }
+                  { value: '2_months', label: '2 Oylik (Pro+ - 70 000 so\'m)' },
+                  { value: '3_months', label: '3 Oylik (Max - 100 000 so\'m)' }
                 ]}
               />
             </div>

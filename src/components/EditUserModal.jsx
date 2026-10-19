@@ -159,8 +159,8 @@ export const EditUserModal = ({ isOpen, onClose, user, onSave, loading }) => {
                   { value: 'none', label: 'O\'zgarishsiz qoldirish', subtext: 'Mavjud holat saqlanadi' },
                   { value: '7_days', label: 'Test Plus Obuna (7 Kunlik)', subtext: '15 000 so\'m (TEST PLUS)' },
                   { value: '1_month', label: 'Pro Obuna (1 Oylik)', subtext: '40 000 so\'m (PRO)' },
-                  { value: '2_months', label: 'Pro+ Obuna (2 Oylik)', subtext: '80 000 so\'m (PRO+ • TAVSIYA)' },
-                  { value: '3_months', label: 'Max Obuna (3 Oylik)', subtext: '120 000 so\'m (MAX)' }
+                  { value: '2_months', label: 'Pro+ Obuna (2 Oylik)', subtext: '70 000 so\'m (PRO+ • TAVSIYA)' },
+                  { value: '3_months', label: 'Max Obuna (3 Oylik)', subtext: '100 000 so\'m (MAX)' }
                 ]}
               />
             </div>
