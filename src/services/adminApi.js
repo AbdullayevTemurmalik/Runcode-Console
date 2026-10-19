@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { safeStorage } from '../utils/storage';
 
 const getAdminBaseUrl = () => {
   const envUrl = import.meta.env.VITE_API_URL;
@@ -20,7 +21,7 @@ const adminApi = axios.create({
 });
 
 adminApi.interceptors.request.use((config) => {
-  const token = localStorage.getItem('runcode_admin_token') || localStorage.getItem('runcode_token');
+  const token = safeStorage.getItem('runcode_admin_token') || safeStorage.getItem('runcode_token');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }

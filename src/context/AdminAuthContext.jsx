@@ -1,14 +1,15 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import adminApi from '../services/adminApi';
+import { safeStorage } from '../utils/storage';
 
 const AdminAuthContext = createContext();
 
 export const AdminAuthProvider = ({ children }) => {
   const [admin, setAdmin] = useState(() => {
     try {
-      const token = localStorage.getItem('runcode_admin_token');
+      const token = safeStorage.getItem('runcode_admin_token');
       if (!token) return null;
-      const cached = localStorage.getItem('runcode_admin_user');
+      const cached = safeStorage.getItem('runcode_admin_user');
       if (cached) return JSON.parse(cached);
       return { role: 'admin', username: 'temur', fullName: 'Temur Abdullayev (Admin)' };
     } catch (e) {
@@ -19,7 +20,7 @@ export const AdminAuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
 
   const fetchCurrentAdmin = async () => {
-    const token = localStorage.getItem('runcode_admin_token');
+    const token = safeStorage.getItem('runcode_admin_token');
     if (!token) {
       setAdmin(null);
       setLoading(false);
@@ -30,7 +31,7 @@ export const AdminAuthProvider = ({ children }) => {
       const data = await adminApi.get('/auth/me');
       if (data && data.success && data.user && data.user.role === 'admin') {
         setAdmin(data.user);
-        localStorage.setItem('runcode_admin_user', JSON.stringify(data.user));
+        safeStorage.setItem('runcode_admin_user', JSON.stringify(data.user));
       } else if (data && data.success === false) {
         logout();
       }
@@ -56,9 +57,9 @@ export const AdminAuthProvider = ({ children }) => {
       if (data.user && data.user.role !== 'admin') {
         throw new Error('Sizda administratorlik huquqi mavjud emas.');
       }
-      localStorage.setItem('runcode_admin_token', data.token);
+      safeStorage.setItem('runcode_admin_token', data.token);
       if (data.user) {
-        localStorage.setItem('runcode_admin_user', JSON.stringify(data.user));
+        safeStorage.setItem('runcode_admin_user', JSON.stringify(data.user));
       }
       setAdmin(data.user);
     }
@@ -66,8 +67,8 @@ export const AdminAuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem('runcode_admin_token');
-    localStorage.removeItem('runcode_admin_user');
+    safeStorage.removeItem('runcode_admin_token');
+    safeStorage.removeItem('runcode_admin_user');
     setAdmin(null);
   };
 

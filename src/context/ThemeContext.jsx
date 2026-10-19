@@ -1,10 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { safeStorage } from '../utils/storage';
 
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(() => {
-    return localStorage.getItem('runcode_admin_theme') || 'dark';
+    return safeStorage.getItem('runcode_admin_theme') || 'dark';
   });
 
   useEffect(() => {
@@ -14,7 +15,7 @@ export const ThemeProvider = ({ children }) => {
     } else {
       root.classList.remove('dark');
     }
-    localStorage.setItem('runcode_admin_theme', theme);
+    safeStorage.setItem('runcode_admin_theme', theme);
   }, [theme]);
 
   const toggleTheme = () => {

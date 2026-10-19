@@ -17,14 +17,8 @@ export const AdminLoginPage = () => {
     setLoading(true);
     setError(null);
     try {
-      const data = await adminApi.post('/auth/admin-login', { username: username.trim(), password });
-      if (data.success && data.token) {
-        localStorage.setItem('runcode_admin_token', data.token);
-        if (data.user) {
-          localStorage.setItem('runcode_admin_user', JSON.stringify(data.user));
-        }
-        window.location.reload();
-      }
+      await login(username.trim().toLowerCase(), password.trim());
+      window.location.reload();
     } catch (err) {
       setError(err.message || 'Admin login yoki parol noto\'g\'ri');
     } finally {
@@ -68,7 +62,10 @@ export const AdminLoginPage = () => {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Username kiriting"
-                className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+                autoCapitalize="none"
+                autoCorrect="off"
+                spellCheck={false}
+                className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
               />
             </div>
           </div>
@@ -85,12 +82,15 @@ export const AdminLoginPage = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Parolni kiriting"
-                className="w-full pl-10 pr-11 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+                autoCapitalize="none"
+                autoCorrect="off"
+                spellCheck={false}
+                className="w-full pl-10 pr-11 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 p-1"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 p-1 cursor-pointer"
                 aria-label="Parolni ko'rsatish"
               >
                 {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
