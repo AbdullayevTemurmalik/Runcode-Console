@@ -28,7 +28,7 @@ export const AdminNavbar = () => {
               </span>
             </div>
             <p className="text-[10px] font-semibold text-brand-600 dark:text-brand-400 tracking-wider uppercase mt-1">
-              By Temurmalik
+              Boshqaruv Paneli
             </p>
           </div>
         </div>

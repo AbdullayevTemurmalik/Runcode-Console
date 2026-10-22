@@ -81,7 +81,7 @@ export const EditUserModal = ({ isOpen, onClose, user, onSave, loading }) => {
                 value={formData.fullName}
                 onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                 required
-                placeholder="Masalan: Temurmalik Abdullayev"
+                placeholder="Masalan: Sardor Aliyev"
                 className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50/50 dark:bg-white/[0.03] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500"
               />
             </div>

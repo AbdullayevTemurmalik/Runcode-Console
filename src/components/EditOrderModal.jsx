@@ -214,17 +214,17 @@ export const EditOrderModal = ({ order, isOpen, onClose, onSaveSuccess }) => {
             <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
               To'lov usuli:
             </label>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-2 gap-2">
               <button
                 type="button"
                 onClick={() => setPaymentMethod('apps')}
                 className={`py-2 px-2 rounded-xl border text-xs font-medium transition-all ${
-                  paymentMethod === 'apps'
+                  paymentMethod === 'apps' || paymentMethod === 'click'
                     ? 'bg-brand-50 dark:bg-brand-500/10 border-brand-500 text-brand-600 dark:text-brand-400 font-bold'
                     : 'bg-gray-50 dark:bg-gray-900/50 border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400'
                 }`}
               >
-                Ilova (Click/Payme)
+                Click Up (QR)
               </button>
 
               <button
@@ -237,18 +237,6 @@ export const EditOrderModal = ({ order, isOpen, onClose, onSaveSuccess }) => {
                 }`}
               >
                 Uzum Bank (QR)
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setPaymentMethod('bankomat')}
-                className={`py-2 px-2 rounded-xl border text-xs font-medium transition-all ${
-                  paymentMethod === 'bankomat'
-                    ? 'bg-brand-50 dark:bg-brand-500/10 border-brand-500 text-brand-600 dark:text-brand-400 font-bold'
-                    : 'bg-gray-50 dark:bg-gray-900/50 border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400'
-                }`}
-              >
-                Bankomat (Naqd)
               </button>
             </div>
           </div>

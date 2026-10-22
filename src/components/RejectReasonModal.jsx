@@ -115,7 +115,7 @@ export const RejectReasonModal = ({ isOpen, onClose, order, onConfirmReject }) =
               rows={3}
               value={customNote}
               onChange={(e) => setCustomNote(e.target.value)}
-              placeholder="Masalan: Karta raqamiga pul tushmagan, chekdagi vaqt bilan mos emas..."
+              placeholder="Masalan: Hisobga to'lov tushmagan, chekdagi vaqt yoki summa mos emas..."
               className="w-full p-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-xs focus:outline-none focus:ring-2 focus:ring-rose-500"
             />
           </div>

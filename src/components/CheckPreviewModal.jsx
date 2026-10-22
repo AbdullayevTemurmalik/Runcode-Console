@@ -199,7 +199,7 @@ export const CheckPreviewModal = ({ isOpen, onClose, order, onApprove, onReject 
                   ? 'Uzum Bank (QR-kod)'
                   : (order.payment_method === 'apps' || order.payment_method === 'click')
                   ? 'Click Up (QR-kod)'
-                  : 'Bankomat (Naqd)'}
+                  : 'Boshqa (QR)'}
               </p>
             </div>
           </div>

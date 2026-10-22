@@ -133,7 +133,7 @@ export const PaymentsTable = ({
                         ? 'Uzum Bank (QR)'
                         : (ord.payment_method === 'apps' || ord.payment_method === 'click')
                         ? 'Click Up (QR)'
-                        : 'Bankomat (Naqd)'}
+                        : 'Boshqa (QR)'}
                     </span>
                   </td>
                   <td className="px-6 py-4">

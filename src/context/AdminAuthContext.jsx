@@ -11,7 +11,7 @@ export const AdminAuthProvider = ({ children }) => {
       if (!token) return null;
       const cached = safeStorage.getItem('runcode_admin_user');
       if (cached) return JSON.parse(cached);
-      return { role: 'admin', username: 'temur', fullName: 'Temur Abdullayev (Admin)' };
+      return { role: 'admin', username: 'admin', fullName: 'RunCode Admin' };
     } catch (e) {
       return null;
     }
