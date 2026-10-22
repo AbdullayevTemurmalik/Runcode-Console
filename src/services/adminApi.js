@@ -3,7 +3,7 @@ import { safeStorage } from '../utils/storage';
 
 const getAdminBaseUrl = () => {
   const envUrl = import.meta.env.VITE_API_URL;
-  if (envUrl && envUrl !== '/api') {
+  if (envUrl) {
     return envUrl;
   }
   // Production muhitida (Vercel yoki custom domen) bevosita global Render backendga ulanish

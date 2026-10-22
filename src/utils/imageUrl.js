@@ -1,3 +1,5 @@
+import { safeStorage } from './storage';
+
 /**
  * Statik fayllar (cheklar, yuklangan rasmlar) uchun to'liq URL manzilini hisoblash
  * Productionda agar VITE_API_URL=https://api.runcode.uz/api bo'lsa,
@@ -17,27 +19,36 @@ export const getImageUrl = (path, forceAbsolute = false) => {
   
   const cleanPath = path.startsWith('/') ? path : `/${path}`;
   const rawEnv = import.meta.env.VITE_API_URL;
-  const apiUrl = (rawEnv && rawEnv !== '/api')
+  const apiUrl = rawEnv
     ? rawEnv
     : (typeof window !== 'undefined' && !window.location.hostname.includes('localhost') && !window.location.hostname.includes('127.0.0.1')
         ? 'https://runcode-engine.onrender.com/api'
         : '');
   
+  let finalUrl = cleanPath;
   if (apiUrl.startsWith('http://') || apiUrl.startsWith('https://')) {
     try {
       const urlObj = new URL(apiUrl);
-      return `${urlObj.origin}${cleanPath}`;
+      finalUrl = `${urlObj.origin}${cleanPath}`;
     } catch {
       // url parse xatoligi bo'lsa fallback
     }
-  }
-
-  if (typeof window !== 'undefined' && forceAbsolute) {
+  } else if (typeof window !== 'undefined' && forceAbsolute) {
     if (window.location.port === '5174') {
-      return `http://localhost:5000${cleanPath}`;
+      finalUrl = `http://localhost:5000${cleanPath}`;
+    } else {
+      finalUrl = `${window.location.origin}${cleanPath}`;
     }
-    return `${window.location.origin}${cleanPath}`;
   }
 
-  return cleanPath;
+  // Himoyalangan to'lov cheklariga admin tokenini qo'shish
+  if (finalUrl.includes('receipt-') || finalUrl.includes('/receipts/')) {
+    const adminToken = safeStorage.getItem('runcode_admin_token') || safeStorage.getItem('runcode_token');
+    if (adminToken && !finalUrl.includes('token=')) {
+      const separator = finalUrl.includes('?') ? '&' : '?';
+      finalUrl = `${finalUrl}${separator}token=${encodeURIComponent(adminToken)}`;
+    }
+  }
+
+  return finalUrl;
 };
